@@ -1,0 +1,37 @@
+---
+title: "Gapminder Exploration"
+output: github_document
+---
+
+This is my first time using RMarkdown. Let's see how it goes.
+
+First I will download the Gapminder dataset and the Tidyverse package:
+
+```{r}
+library(gapminder)
+library(tidyverse)
+```
+Now let's see what this package is about
+```{r}
+glimpse(gapminder)
+```
+
+Hmmm, it seems to be a rough statistical profile of the standards of living in various countries over time. Let's see what different insights we can get from this. We expect living conditions in general to improve over time, is this true? We can test this expectation by plotting GDP per capita and live expectancy against time:
+```{r}
+plot(lifeExp ~ year, gapminder)
+plot(gdpPercap ~ year, gapminder)
+```
+
+The life expectancy graph looks pretty promising, but it's hard to make out whether there are any improvements for the poorer countries in GDP per capita. 
+```{r}
+gapminder %>%
+    group_by(year) %>%
+    summarise(median(lifeExp))
+```
+This shows that the benefits extend at least to the 50th percentile country. We might want to also see how the GDP per capita changed on each continent:
+
+```{r}
+gapminder %>%
+    group_by(year,continent) %>%
+    summarise(tail(median(gdpPercap)))
+```
