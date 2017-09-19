@@ -17,7 +17,7 @@ Here's a list of some *less* useful stuff I like:
 
 (fun fact, I was actually at this game)
 
-* philosophy
+* philosophy (really reading, but I don't have any good photos for that)
 
 ![Spicy thoughts](IMG_8823.JPG)
 
