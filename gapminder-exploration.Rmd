@@ -11,7 +11,8 @@ First I will download the Gapminder dataset and the Tidyverse package:
 library(gapminder)
 library(tidyverse)
 ```
-Now let's see what this package is about
+
+Now let's see what this package is about:
 ```{r}
 glimpse(gapminder)
 ```
@@ -22,16 +23,41 @@ plot(lifeExp ~ year, gapminder)
 plot(gdpPercap ~ year, gapminder)
 ```
 
-The life expectancy graph looks pretty promising, but it's hard to make out whether there are any improvements for the poorer countries in GDP per capita. 
+The life expectancy graph looks pretty promising, but the GDP plot is distorted by a couple outliers, let's try to take them out.
+```{r}
+# find outlier
+outlier <- filter(gapminder, gdpPercap == max(gdpPercap))
+Outcountry  <- outlier$country
+# remove outlier
+GdpTable <- filter(gapminder, country != Outcountry)
+
+plot(GdpTable$gdpPercap~GdpTable$year)
+```
+
+The improvement becomes clearer, but it looks like it's mostly restricted to wealthier countries. Let's see how much improvement there is for the median country:
 ```{r}
 gapminder %>%
     group_by(year) %>%
-    summarise(median(lifeExp))
+    summarise(median(gdpPercap))
 ```
-This shows that the benefits extend at least to the 50th percentile country. We might want to also see how the GDP per capita changed on each continent:
+
+This shows that significant growth extends at least to the 50th percentile country, but how does it evolve for the poorer countries?
 
 ```{r}
-gapminder %>%
-    group_by(year,continent) %>%
-    summarise(tail(median(gdpPercap)))
+# find the poorer countries at the beginning of the dataset
+then <- filter(gapminder, year == min(year))
+lowstart  <- filter(then, gdpPercap < median(gdpPercap))
+lowGdp <- filter(gapminder, country %in% lowstart$country)
+# plot
+plot(lowGdp$gdpPercap~lowGdp$year)
 ```
+
+This seems to indicate that other than a few outliers, growth is very modest. Let's find out who those outliers are
+```{r}
+lowGdp %>%
+  arrange(desc(gdpPercap)) %>% 
+  filter(year == max(year)) %>% 
+  select(country,continent,gdpPercap,everything(),-year)
+```
+
+These results are not encouraging for poorer countries hoping to increase their wealth without foreign aid. Of the three highest countries (Taiwan, South Korea, Oman---whose current GDP's are almost double the next highest), Taiwan and Korea were at (civil) war at the beginning of the dataset and recieved significant American economic support in the aftermath, while Oman was largely dependent on the discovery of oil during their surge in GDP. We can further see that only ten countries made the jump from below median GDP to above median GDP over the 55 years in the dataset, allowing us to deduce that relative wealth is generally fairly static.

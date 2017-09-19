@@ -1,7 +1,7 @@
 ---
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 # STAT545-hw01-barton-alistair
 
@@ -19,16 +19,14 @@ Here's a list of some *less* useful stuff I like:
 
 * philosophy
 
-<img src="IMG_8823.JPG" alt="spicy thoughts" style="width: 400px;"/>
+![Spicy thoughts](IMG_8823.JPG)
 
 * food
 
-<img src="IMG_8189.JPG" alt="spicy cumin" style="width: 400px;"/>
-
+![Spicy cumin](IMG_8189.JPG)
 
 This summer I spent a month [here](https://www.lonelyplanet.com/china). To prove it, here's a photo of me on a stylish camel (wearing even more stylish footwear):
 
-<img src="IMG_6974.JPG" alt="camel" style="width: 400px;"/>
+![camel](IMG_6974.JPG)
 
-
-**Process:** I edited in browser at the beginning, but touched things up locally. Used [GitHub Guides](https://guides.github.com/) and [StackOverflow](https://stackoverflow.com/) to help. Had trouble getting photos to a reasonable size using markdown, so upon the advice of StackOverflow, used html.
+**Process:** I edited in browser at the beginning, but touched things up locally. Used [GitHub Guides](https://guides.github.com/) and [StackOverflow](https://stackoverflow.com/) to help. Had trouble getting photos to a reasonable size using markdown, so upon the advice of StackOverflow, used html. Used some help from [Jenny Bryan's github](https://github.com/jennybc/gapminder) for manipulating the Gapminder dataset (in particular for the `group_by()` function).
