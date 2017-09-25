@@ -1,0 +1,150 @@
+---
+title: "Assignment 2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Loading packages:
+
+```{r}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(gapminder))
+```
+## Smell test the data
+
+Is it a data.frame, a matrix, a vector, a list?
+
+```{r}
+typeof(gapminder)
+```
+
+1. `gapminder` is a list.
+
+What’s its class?
+
+```{r}
+class(gapminder)
+```
+
+2. `gapminder`'s class is first "tbl_df", second "tbl" and third "data.frame", defining which functions one can apply to it and how each function apply itself to it.
+
+How many variables/columns?
+
+```{r}
+ncol(gapminder)
+```
+
+3. 6 columns
+
+How many rows/observations?
+
+```{r}
+nrow(gapminder)
+```
+
+4. 1704 rows
+
+Can you get these facts about “extent” or “size” in more than one way? 
+
+5. Yes, through `length()` function, or `dim()`.
+
+
+Can you imagine different functions being useful in different contexts?
+
+6. `dim()` returns both dimensions at once which would be quicker for answering questions 3,4. However `nrow()` and `ncol()` return a scalar which might be more useful if you're using the dimensions in a function or loop. `length()` might be useful for lists or one dimensional arrays (which `NROW()` and `NCOL()` work on, unlike `nrow()` and `ncol()`) if you're unsure if they are column or row vectors.
+
+What data type is each variable?
+
+```{r}
+glimpse(gapminder)
+```
+
+7. We can see that *country* and *continent* are factors, *year* and *pop* are integers, while *lifeExp* and *gdpPercap* are doubles.
+
+## Explore individual variables
+
+I will explore (a) the continent and (b) the population variables.
+
+```{r}
+summary(gapminder$continent)
+```
+
+
+1a. The range of variables for the continent variable are Africa, Americas, Asia, Europe and Oceania.
+
+2a. The most frequent value is Africa, occuring 624 times. 
+
+```{r}
+summary(gapminder$pop)
+sd(gapminder$pop)
+```
+
+1b. The range of the population variable is about 60 thousand to 1.319 billion.
+
+2b. We can see that the population variable has a mean of 29.6 million with a standard deviation of 106 million. This is a little misleading as the distribution has a large skew as we will see in the next section.
+
+
+
+## Explore plot types
+
+1. Scatterplot of population and GDP:
+
+```{r}
+p <- ggplot(gapminder, aes(x=gdpPercap,y=lifeExp))
+p + geom_point(aes(size = pop, alpha = year))
+```
+
+
+2. Plot of quantitative variable: a scatterplot to showcase the extreme skew in population leading to a misleading mean. Note that the population values go all the way to the right side of the graph despite being barely visible.
+
+```{r}
+hist(gapminder$pop,breaks = 100)
+```
+
+3. A boxplot of wealth on each continent:
+
+```{r}
+ggplot(gapminder, aes(x = continent, y = gdpPercap)) + geom_boxplot()
+```
+
+## Use filter(), select() and %>%
+
+I'm curious about how our earlier life expectancy vs gdp graph looks like once we filter for the wealthier continents (according to the above boxplot) in this time frame:
+
+```{r}
+gapminder %>% 
+  filter(continent %in% c('Europe','Oceania')) %>% 
+  ggplot(aes(x = gdpPercap, y = lifeExp)) + geom_point(aes(size = pop, alpha = year))
+```
+
+Here we can see a much more pronounced pattern in the data, with most outliers being small countries and/or early in the dataset.
+
+In order to see how Canada has changed over the years:
+
+```{r}
+gapminder %>% 
+  filter(country == 'Canada') %>% 
+  select(-continent, -country) %>% 
+  knitr::kable()
+```
+
+## I want to do more
+
+```{r}
+gapminder %>% 
+  filter(country == c("Rwanda", "Afghanistan")) %>% 
+  knitr::kable()
+```
+
+So it seems like they get data for both Afghanistan and Rwanda, but for alternating time frames (e.g. they get Rwanda for 1952 but not 1957 and Afghanistan in 1957 but not 1952). The correct way to do this would be 
+
+```{r}
+gapminder %>% 
+  filter(country %in% c("Rwanda", "Afghanistan")) %>% 
+  knitr::kable()
+```
+
