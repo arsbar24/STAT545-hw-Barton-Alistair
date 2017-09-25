@@ -12,4 +12,8 @@
 
 * I didn't know how to get a boxplot, so I googled it. I ended up figuring out from [this site](https://plot.ly/ggplot2/box-plots/#basic-boxplot), although it wasn't easy.
 
+* I found the `group_by()` function on [Jenny Bryan's github](https://github.com/jennybc/gapminder).
+
+* I figured out how to use `knitr::kable()` by a lucky guess.
+
 * The rest of the assignment I made it through alright, with a few checks on my notes from lecture c005. 
