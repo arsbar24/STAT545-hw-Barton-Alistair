@@ -132,6 +132,15 @@ gapminder %>%
   knitr::kable()
 ```
 
+We can also check out the economic power of each continent:
+
+```{r}
+gapminder %>% 
+  mutate(GDP = gdpPercap*pop) %>% 
+  group_by(continent) %>% 
+  summarise(sum(GDP), mean(GDP)) %>% 
+  knitr::kable()
+```
 ## I want to do more
 
 ```{r}
