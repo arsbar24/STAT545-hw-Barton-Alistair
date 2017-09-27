@@ -138,7 +138,7 @@ sd(gapminder$pop)
 
 ## Explore plot types
 
-1. Scatterplot of population and GDP:
+1. Scatterplot of life expectancy and GDP (with additional factors represented in the transparency and size of points):
 
 
 ```r
@@ -166,6 +166,8 @@ ggplot(gapminder, aes(x = continent, y = gdpPercap)) + geom_boxplot(aes(alpha = 
 ```
 
 ![](Assignment2_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+
+This shows oceania and europe are significantly wealthier than the other continents, while Africa is rather consistently poor.
 
 ## Use filter(), select() and %>%
 
@@ -208,6 +210,8 @@ gapminder %>%
 ## 11  2002  79.770 31902268  33328.97
 ## 12  2007  80.653 33390141  36319.24
 ```
+
+The population seems to consistently rise about 1-2 million while the life expentancy and GDP per capita are steadily increasing (aside from a small set back in GDP per capita in 1987-1982).
 
 We can also check out the economic power of each continent:
 
