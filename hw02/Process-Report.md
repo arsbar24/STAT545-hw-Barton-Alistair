@@ -14,6 +14,6 @@
 
 * I found the `group_by()` function on [Jenny Bryan's github](https://github.com/jennybc/gapminder).
 
-* I figured out how to use `knitr::kable()` by a lucky guess.
+* I figured out how to use `knitr::kable()` for Rmd files, but couldn't figure out how to have that translate to md files, so I removed it. (Full disclosure: I added the md file after posting the issue that the assignment was ready for marking, but before midnight.)
 
 * The rest of the assignment I made it through without significant difficulty, with the help of my notes from lecture c005. 
