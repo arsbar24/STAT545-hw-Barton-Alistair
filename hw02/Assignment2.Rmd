@@ -130,8 +130,7 @@ In order to see how Canada has changed over the years:
 ```{r}
 gapminder %>% 
   filter(country == 'Canada') %>% 
-  select(-continent, -country) %>% 
-  knitr::kable()
+  select(-continent, -country)
 ```
 
 We can also check out the economic power of each continent:
@@ -140,22 +139,19 @@ We can also check out the economic power of each continent:
 gapminder %>% 
   mutate(GDP = gdpPercap*pop) %>% 
   group_by(continent) %>% 
-  summarise(sum(GDP), mean(GDP)) %>% 
-  knitr::kable()
+  summarise(sum(GDP), mean(GDP))
 ```
 ## I want to do more
 
 ```{r}
 gapminder %>% 
-  filter(country == c("Rwanda", "Afghanistan")) %>% 
-  knitr::kable()
+  filter(country == c("Rwanda", "Afghanistan"))
 ```
 
 So it seems like they get data for both Afghanistan and Rwanda, but for alternating time frames (e.g. they get Rwanda for 1952 but not 1957 and Afghanistan in 1957 but not 1952). The correct way to do this would be 
 
 ```{r}
 gapminder %>% 
-  filter(country %in% c("Rwanda", "Afghanistan")) %>% 
-  knitr::kable()
+  filter(country %in% c("Rwanda", "Afghanistan")) 
 ```
 

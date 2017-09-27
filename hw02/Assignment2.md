@@ -188,26 +188,26 @@ In order to see how Canada has changed over the years:
 ```r
 gapminder %>% 
   filter(country == 'Canada') %>% 
-  select(-continent, -country) %>% 
-  knitr::kable()
+  select(-continent, -country)
 ```
 
-
-
- year   lifeExp        pop   gdpPercap
------  --------  ---------  ----------
- 1952    68.750   14785584    11367.16
- 1957    69.960   17010154    12489.95
- 1962    71.300   18985849    13462.49
- 1967    72.130   20819767    16076.59
- 1972    72.880   22284500    18970.57
- 1977    74.210   23796400    22090.88
- 1982    75.760   25201900    22898.79
- 1987    76.860   26549700    26626.52
- 1992    77.950   28523502    26342.88
- 1997    78.610   30305843    28954.93
- 2002    79.770   31902268    33328.97
- 2007    80.653   33390141    36319.24
+```
+## # A tibble: 12 x 4
+##     year lifeExp      pop gdpPercap
+##    <int>   <dbl>    <int>     <dbl>
+##  1  1952  68.750 14785584  11367.16
+##  2  1957  69.960 17010154  12489.95
+##  3  1962  71.300 18985849  13462.49
+##  4  1967  72.130 20819767  16076.59
+##  5  1972  72.880 22284500  18970.57
+##  6  1977  74.210 23796400  22090.88
+##  7  1982  75.760 25201900  22898.79
+##  8  1987  76.860 26549700  26626.52
+##  9  1992  77.950 28523502  26342.88
+## 10  1997  78.610 30305843  28954.93
+## 11  2002  79.770 31902268  33328.97
+## 12  2007  80.653 33390141  36319.24
+```
 
 We can also check out the economic power of each continent:
 
@@ -216,80 +216,67 @@ We can also check out the economic power of each continent:
 gapminder %>% 
   mutate(GDP = gdpPercap*pop) %>% 
   group_by(continent) %>% 
-  summarise(sum(GDP), mean(GDP)) %>% 
-  knitr::kable()
+  summarise(sum(GDP), mean(GDP))
 ```
 
-
-
-continent        sum(GDP)      mean(GDP)
-----------  -------------  -------------
-Africa       1.304458e+13    20904782844
-Americas     1.137787e+14   379262350210
-Asia         8.998456e+13   227233738153
-Europe       9.699915e+13   269442085301
-Oceania      4.516491e+12   188187105354
+```
+## # A tibble: 5 x 3
+##   continent   `sum(GDP)`  `mean(GDP)`
+##      <fctr>        <dbl>        <dbl>
+## 1    Africa 1.304458e+13  20904782844
+## 2  Americas 1.137787e+14 379262350210
+## 3      Asia 8.998456e+13 227233738153
+## 4    Europe 9.699915e+13 269442085301
+## 5   Oceania 4.516491e+12 188187105354
+```
 ## I want to do more
 
 
 ```r
 gapminder %>% 
-  filter(country == c("Rwanda", "Afghanistan")) %>% 
-  knitr::kable()
+  filter(country == c("Rwanda", "Afghanistan"))
 ```
 
-
-
-country       continent    year   lifeExp        pop   gdpPercap
-------------  ----------  -----  --------  ---------  ----------
-Afghanistan   Asia         1957    30.332    9240934    820.8530
-Afghanistan   Asia         1967    34.020   11537966    836.1971
-Afghanistan   Asia         1977    38.438   14880372    786.1134
-Afghanistan   Asia         1987    40.822   13867957    852.3959
-Afghanistan   Asia         1997    41.763   22227415    635.3414
-Afghanistan   Asia         2007    43.828   31889923    974.5803
-Rwanda        Africa       1952    40.000    2534927    493.3239
-Rwanda        Africa       1962    43.000    3051242    597.4731
-Rwanda        Africa       1972    44.600    3992121    590.5807
-Rwanda        Africa       1982    46.218    5507565    881.5706
-Rwanda        Africa       1992    23.599    7290203    737.0686
-Rwanda        Africa       2002    43.413    7852401    785.6538
+```
+## # A tibble: 12 x 6
+##        country continent  year lifeExp      pop gdpPercap
+##         <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
+##  1 Afghanistan      Asia  1957  30.332  9240934  820.8530
+##  2 Afghanistan      Asia  1967  34.020 11537966  836.1971
+##  3 Afghanistan      Asia  1977  38.438 14880372  786.1134
+##  4 Afghanistan      Asia  1987  40.822 13867957  852.3959
+##  5 Afghanistan      Asia  1997  41.763 22227415  635.3414
+##  6 Afghanistan      Asia  2007  43.828 31889923  974.5803
+##  7      Rwanda    Africa  1952  40.000  2534927  493.3239
+##  8      Rwanda    Africa  1962  43.000  3051242  597.4731
+##  9      Rwanda    Africa  1972  44.600  3992121  590.5807
+## 10      Rwanda    Africa  1982  46.218  5507565  881.5706
+## 11      Rwanda    Africa  1992  23.599  7290203  737.0686
+## 12      Rwanda    Africa  2002  43.413  7852401  785.6538
+```
 
 So it seems like they get data for both Afghanistan and Rwanda, but for alternating time frames (e.g. they get Rwanda for 1952 but not 1957 and Afghanistan in 1957 but not 1952). The correct way to do this would be 
 
 
 ```r
 gapminder %>% 
-  filter(country %in% c("Rwanda", "Afghanistan")) %>% 
-  knitr::kable()
+  filter(country %in% c("Rwanda", "Afghanistan")) 
 ```
 
-
-
-country       continent    year   lifeExp        pop   gdpPercap
-------------  ----------  -----  --------  ---------  ----------
-Afghanistan   Asia         1952    28.801    8425333    779.4453
-Afghanistan   Asia         1957    30.332    9240934    820.8530
-Afghanistan   Asia         1962    31.997   10267083    853.1007
-Afghanistan   Asia         1967    34.020   11537966    836.1971
-Afghanistan   Asia         1972    36.088   13079460    739.9811
-Afghanistan   Asia         1977    38.438   14880372    786.1134
-Afghanistan   Asia         1982    39.854   12881816    978.0114
-Afghanistan   Asia         1987    40.822   13867957    852.3959
-Afghanistan   Asia         1992    41.674   16317921    649.3414
-Afghanistan   Asia         1997    41.763   22227415    635.3414
-Afghanistan   Asia         2002    42.129   25268405    726.7341
-Afghanistan   Asia         2007    43.828   31889923    974.5803
-Rwanda        Africa       1952    40.000    2534927    493.3239
-Rwanda        Africa       1957    41.500    2822082    540.2894
-Rwanda        Africa       1962    43.000    3051242    597.4731
-Rwanda        Africa       1967    44.100    3451079    510.9637
-Rwanda        Africa       1972    44.600    3992121    590.5807
-Rwanda        Africa       1977    45.000    4657072    670.0806
-Rwanda        Africa       1982    46.218    5507565    881.5706
-Rwanda        Africa       1987    44.020    6349365    847.9912
-Rwanda        Africa       1992    23.599    7290203    737.0686
-Rwanda        Africa       1997    36.087    7212583    589.9445
-Rwanda        Africa       2002    43.413    7852401    785.6538
-Rwanda        Africa       2007    46.242    8860588    863.0885
+```
+## # A tibble: 24 x 6
+##        country continent  year lifeExp      pop gdpPercap
+##         <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
+##  1 Afghanistan      Asia  1952  28.801  8425333  779.4453
+##  2 Afghanistan      Asia  1957  30.332  9240934  820.8530
+##  3 Afghanistan      Asia  1962  31.997 10267083  853.1007
+##  4 Afghanistan      Asia  1967  34.020 11537966  836.1971
+##  5 Afghanistan      Asia  1972  36.088 13079460  739.9811
+##  6 Afghanistan      Asia  1977  38.438 14880372  786.1134
+##  7 Afghanistan      Asia  1982  39.854 12881816  978.0114
+##  8 Afghanistan      Asia  1987  40.822 13867957  852.3959
+##  9 Afghanistan      Asia  1992  41.674 16317921  649.3414
+## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414
+## # ... with 14 more rows
+```
 
