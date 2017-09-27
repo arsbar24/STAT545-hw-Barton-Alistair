@@ -1,6 +1,8 @@
 ---
 title: "Assignment 2"
-output: html_document
+output: 
+  html_document: 
+    keep_md: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -108,7 +110,7 @@ hist(gapminder$pop,breaks = 100)
 3. A boxplot of wealth on each continent:
 
 ```{r}
-ggplot(gapminder, aes(x = continent, y = gdpPercap)) + geom_boxplot()
+ggplot(gapminder, aes(x = continent, y = gdpPercap)) + geom_boxplot(aes(alpha = 0.5))
 ```
 
 ## Use filter(), select() and %>%
