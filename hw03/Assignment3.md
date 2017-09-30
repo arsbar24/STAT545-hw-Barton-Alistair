@@ -125,24 +125,24 @@ In fact the number of african countries with a 'low' life expectancy has actuall
 gapminder %>% 
   filter(continent == 'Africa', year > 1990, year < 2005) %>% 
   group_by(country) %>% 
-  summarise(delta = lifeExp[3]-lifeExp[1]) %>% # change in life expectancy over these years
+  summarise(delta = lifeExp[3]-lifeExp[1], population = pop[1]) %>% # change in life expectancy over these years
   arrange(delta) # list with worst decreases first
 ```
 
 ```
-## # A tibble: 52 x 2
-##                     country   delta
-##                      <fctr>   <dbl>
-##  1                 Zimbabwe -20.388
-##  2                 Botswana -16.111
-##  3                  Lesotho -15.092
-##  4                Swaziland -14.605
-##  5                  Namibia -10.520
-##  6             South Africa  -8.523
-##  7                    Kenya  -8.293
-##  8                   Zambia  -6.907
-##  9 Central African Republic  -6.088
-## 10            Cote d'Ivoire  -5.212
+## # A tibble: 52 x 3
+##                     country   delta population
+##                      <fctr>   <dbl>      <int>
+##  1                 Zimbabwe -20.388   10704340
+##  2                 Botswana -16.111    1342614
+##  3                  Lesotho -15.092    1803195
+##  4                Swaziland -14.605     962344
+##  5                  Namibia -10.520    1554253
+##  6             South Africa  -8.523   39964159
+##  7                    Kenya  -8.293   25020539
+##  8                   Zambia  -6.907    8381163
+##  9 Central African Republic  -6.088    3265124
+## 10            Cote d'Ivoire  -5.212   12772596
 ## # ... with 42 more rows
 ```
 

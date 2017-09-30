@@ -33,6 +33,10 @@ gapminder %>%
   summarise(GDPspread = max(gdpPercap) - min(gdpPercap))
 ```
 
+```{r}
+ggplot(gapminder, aes(x = continent, y = gdpPercap)) + geom_boxplot(aes(alpha = 0.5))
+```
+
 > Compute a trimmed mean of life expectancy for different years. Or a weighted mean, weighting by population. Just try something other than the plain vanilla mean.
 
 ```{r}
@@ -40,6 +44,10 @@ gapminder %>%
   mutate(yearslived = lifeExp*pop) %>% # total years lived in each country
   group_by(year) %>% 
   summarise(meanlifeExp = sum(as.numeric(yearslived))/sum(as.numeric(pop))) # weighted average
+```
+
+```{r}
+ggplot(gapminder, aes(x = year, y = lifeExp)) + geom_point() + geom_smooth(method = 'auto') # fitted curve from Jenny Bryan's deck https://speakerdeck.com/jennybc/ggplot2-tutorial
 ```
 
 
@@ -81,7 +89,7 @@ In fact the number of african countries with a 'low' life expectancy has actuall
 gapminder %>% 
   filter(continent == 'Africa', year > 1990, year < 2005) %>% 
   group_by(country) %>% 
-  summarise(delta = lifeExp[3]-lifeExp[1]) %>% # change in life expectancy over these years
+  summarise(delta = lifeExp[3]-lifeExp[1], population = pop[1]) %>% # change in life expectancy over these years
   arrange(delta) # list with worst decreases first
 ```
 
