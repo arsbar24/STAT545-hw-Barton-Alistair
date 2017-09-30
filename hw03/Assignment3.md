@@ -51,6 +51,8 @@ gapminder %>%
 ## 5   Oceania  24395.77
 ```
 
+To illustrate the GDP spread from the past two questions, I used a boxplot:
+
 
 ```r
 ggplot(gapminder, aes(x = continent, y = gdpPercap)) + geom_boxplot(aes(alpha = 0.5))
@@ -86,19 +88,24 @@ gapminder %>%
 ## 12  2007    68.91909
 ```
 
+For my accompanying graph I decided to plot the distribution of life expectancy with a curve fitted to it through the `geom_smooth()` function---it won't be a weighted average, but it should be close:
+
+
 ```r
-# accompanying figure
-ggplot(gapminder, aes(x = year, y = lifeExp)) + geom_point(alpha = 0.1) + geom_smooth(method = 'auto') # fitted curve from Jenny Bryan's deck https://speakerdeck.com/jennybc/ggplot2-tutorial
+p <- ggplot(gapminder, aes(x = year, y = lifeExp)) + geom_point(alpha = 0.1)
+p + geom_smooth(method = 'auto') # fitted curve 
 ```
 
 ```
 ## `geom_smooth()` using method = 'gam'
 ```
 
-![](Assignment3_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+![](Assignment3_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
 
 
 > How is life expectancy changing over time on different continents?
+
+To investigate this we use two plots, one of the average life expectancy (to show short term trends and for easy comparison) and one of the distribution for each continent (to show outliers and long-term trends):
 
 
 ```r
@@ -113,26 +120,26 @@ p <- ggplot(conts, aes(x = year, y = meanlifeExp))
 p + geom_point(aes(colour = continent))
 ```
 
-![](Assignment3_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+![](Assignment3_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
 
 ```r
-ggplot(gapminder,aes(y = lifeExp, x = year)) + facet_wrap(~ continent) + geom_point(alpha = 0.2) + geom_smooth(method = 'loess', lwd = 0.5, se = T)
+# plot distribution for each continent
+p <- ggplot(gapminder,aes(y = lifeExp, x = year))
+p <- p + facet_wrap(~ continent) + geom_point(alpha = 0.2) # separate graphs for each continent
+p + geom_smooth(method = 'loess', lwd = 0.5, se = T) # trend lines
 ```
 
-![](Assignment3_files/figure-html/unnamed-chunk-6-2.png)<!-- -->
+![](Assignment3_files/figure-html/unnamed-chunk-7-2.png)<!-- -->
 
-```r
-# from Jenny Bryan's github
-```
-
-We can see that all the continents have improved significantly, especially Asia (aside from a brief fall in 1962) with Africa slowing down since 1990. 
+We can see that all the continents have improved significantly, especially Asia (aside from a brief fall in life expectancy in 1962) with Africa's improvement slowing down significantly since 1990. We can also see the disparities between countries on each continent, oceania seems to be consistently high (although it may be benefited from having few countries) and European countries seems to be converging, while diverging Africa has a few outliers with life expectancy over 70 and Asia seems to have medium life expectancy except one outlier with life expectancy around 40 (I suspect Afghanistan).
 
 > Report the absolute and/or relative abundance of countries with low life expectancy over time by continent: Compute some measure of worldwide life expectancy – you decide – a mean or median or some other quantile or perhaps your current age. Then determine how many countries on each continent have a life expectancy less than this benchmark, for each year.
 
-I will choose the benchmark of my father's age of 57. This makes the data more meaningful as I cannot imagine living in a country where most people my age have lost a parent. 
+I will choose the benchmark of my father's age of 57. This makes the data more meaningful as it's difficult to imagine living in a country where most people my age have lost a parent (although this may be offset by younger ages of new parents). 
 
 
 ```r
+# create dataset with continent, year, and number of countries with 'low' life expectancy
 conts <- gapminder %>% 
   group_by(continent, year) %>% 
   summarise(lowLifeExppcent = sum(lifeExp < 57)/length(lifeExp))
@@ -140,14 +147,18 @@ conts <- gapminder %>%
 ggplot(conts,aes(y = lowLifeExppcent, x = year)) + geom_line(aes(colour = continent))
 ```
 
-![](Assignment3_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+![](Assignment3_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
 
 
-We can see that Oceania hasn't had such countries during the range of this dataset while Europe and the Americas no longer have any such countries. Asia has also raised the life expectancy above 57 in almost every country. Unfortunately Africa remains the only continent far away from this level: while at the beginning of the dataset every single african country had a 'low' life expectancy, today about two thirds of african countries still have a 'low' life expectancy! 
+We can see that Oceania hasn't had such countries during the range of this dataset while Europe and the Americas no longer have any such countries. Asia has also raised the life expectancy above 57 in almost every country (aside from, I suspect, only Afghanistan). Unfortunately Africa remains the only continent far away from this level: while at the beginning of the dataset every single african country had a 'low' life expectancy, today about two thirds of african countries still have a 'low' life expectancy! 
 
-In fact the number of african countries with a 'low' life expectancy has actually increased since 1992! This regression is somewhat obscured in the prior graph, although it does correspond to the flattening out of Africa's mean life expectancy.
+In fact the number of african countries with a 'low' life expectancy has actually increased since 1992! This regress is somewhat obscured in the prior graph, although it does correspond to the flattening out of Africa's mean life expectancy.
 
 > Find countries with interesting stories. Open-ended and, therefore, hard. Promising but unsuccessful attempts are encouraged. This will generate interesting questions to follow up on in class.
+
+# Zimbabwe
+
+I find this regress concerning and perplexing, so I'm going to make a case study of what I estimate to be the prototype of this trend: Zimbabwe.
 
 
 ```r
@@ -175,7 +186,9 @@ gapminder %>%
 ## # ... with 42 more rows
 ```
 
-We can see that there's a concentration of these countries in southern Africa. We will Zimbabwe as our country of interest because it suffered the worst progression but is also in the geographic centre of these countries. Let's see how Zimbabwe has changed in the last half century
+As we can see, Zimbabwe had the worst change in life expectancy during the regress. Furthermore many of its neighbours join it near the top of the list, in fact we have to go to number 8, Kenya, to find a country not in southern Africa. Thus Zimbabwe is not only the worst affected, but the locus of the regress.
+
+Next, we look at how the living standards in Zimbabwe have changed over time:
 
 
 ```r
@@ -184,14 +197,11 @@ zimbData <- filter(gapminder, country == 'Zimbabwe')
 ggplot(zimbData, aes(x = year, y = lifeExp)) + geom_point(aes(size = gdpPercap)) 
 ```
 
-![](Assignment3_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+![](Assignment3_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
 
 We can see that there seems to be a somewhat normal progression (albeit slow GDP growth) until 1990 where this calamity hits, at which point life expectancy decreased to the lowest level since data collection began, and remains around there at the end of our data collection (culminating in a drop of almost 40% over 15 years). Interestingly GDP per capita doesn't seem to take a significant hit until 15 years after the disaster.
 
 This downturn may be attributed to the [HIV epidemic in the region in the 90s](https://en.wikipedia.org/wiki/HIV/AIDS_in_Africa#Southern_Africa), which also affected neighbouring countries. The crash in GDP per capita in the mid-2000s seems to correlate with the worst periods of the [infamous Zimbabwe hyperinflation](https://en.wikipedia.org/wiki/Hyperinflation_in_Zimbabwe#Inflation_rate) and may also have something to do with the land reform policies around the turn of the century that (quoting wikipedia) "put [land] in the hands of inexperienced people".
-
-> Make up your own! Between the dplyr coverage in class and the list above, I think you get the idea.
-
 
 
 
