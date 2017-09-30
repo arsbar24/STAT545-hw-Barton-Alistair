@@ -51,6 +51,13 @@ gapminder %>%
 ## 5   Oceania  24395.77
 ```
 
+
+```r
+ggplot(gapminder, aes(x = continent, y = gdpPercap)) + geom_boxplot(aes(alpha = 0.5))
+```
+
+![](Assignment3_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+
 > Compute a trimmed mean of life expectancy for different years. Or a weighted mean, weighting by population. Just try something other than the plain vanilla mean.
 
 
@@ -79,6 +86,17 @@ gapminder %>%
 ## 12  2007    68.91909
 ```
 
+```r
+# accompanying figure
+ggplot(gapminder, aes(x = year, y = lifeExp)) + geom_point(alpha = 0.1) + geom_smooth(method = 'auto') # fitted curve from Jenny Bryan's deck https://speakerdeck.com/jennybc/ggplot2-tutorial
+```
+
+```
+## `geom_smooth()` using method = 'gam'
+```
+
+![](Assignment3_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+
 
 > How is life expectancy changing over time on different continents?
 
@@ -95,7 +113,17 @@ p <- ggplot(conts, aes(x = year, y = meanlifeExp))
 p + geom_point(aes(colour = continent))
 ```
 
-![](Assignment3_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+![](Assignment3_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+
+```r
+ggplot(gapminder,aes(y = lifeExp, x = year)) + facet_wrap(~ continent) + geom_point(alpha = 0.2) + geom_smooth(method = 'loess', lwd = 0.5, se = T)
+```
+
+![](Assignment3_files/figure-html/unnamed-chunk-6-2.png)<!-- -->
+
+```r
+# from Jenny Bryan's github
+```
 
 We can see that all the continents have improved significantly, especially Asia (aside from a brief fall in 1962) with Africa slowing down since 1990. 
 
@@ -109,10 +137,11 @@ conts <- gapminder %>%
   group_by(continent, year) %>% 
   summarise(lowLifeExppcent = sum(lifeExp < 57)/length(lifeExp))
 
-ggplot(conts,aes(y = lowLifeExppcent, x = year)) + geom_point(aes(colour = continent))
+ggplot(conts,aes(y = lowLifeExppcent, x = year)) + geom_line(aes(colour = continent))
 ```
 
-![](Assignment3_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+![](Assignment3_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+
 
 We can see that Oceania hasn't had such countries during the range of this dataset while Europe and the Americas no longer have any such countries. Asia has also raised the life expectancy above 57 in almost every country. Unfortunately Africa remains the only continent far away from this level: while at the beginning of the dataset every single african country had a 'low' life expectancy, today about two thirds of african countries still have a 'low' life expectancy! 
 
@@ -152,16 +181,18 @@ We can see that there's a concentration of these countries in southern Africa. W
 ```r
 zimbData <- filter(gapminder, country == 'Zimbabwe') 
 
-ggplot(zimbData, aes(x = year, y = lifeExp)) + geom_point(aes(size = gdpPercap))
+ggplot(zimbData, aes(x = year, y = lifeExp)) + geom_point(aes(size = gdpPercap)) 
 ```
 
-![](Assignment3_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+![](Assignment3_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
 We can see that there seems to be a somewhat normal progression (albeit slow GDP growth) until 1990 where this calamity hits, at which point life expectancy decreased to the lowest level since data collection began, and remains around there at the end of our data collection (culminating in a drop of almost 40% over 15 years). Interestingly GDP per capita doesn't seem to take a significant hit until 15 years after the disaster.
 
 This downturn may be attributed to the [HIV epidemic in the region in the 90s](https://en.wikipedia.org/wiki/HIV/AIDS_in_Africa#Southern_Africa), which also affected neighbouring countries. The crash in GDP per capita in the mid-2000s seems to correlate with the worst periods of the [infamous Zimbabwe hyperinflation](https://en.wikipedia.org/wiki/Hyperinflation_in_Zimbabwe#Inflation_rate) and may also have something to do with the land reform policies around the turn of the century that (quoting wikipedia) "put [land] in the hands of inexperienced people".
 
 > Make up your own! Between the dplyr coverage in class and the list above, I think you get the idea.
+
+
 
 
 
