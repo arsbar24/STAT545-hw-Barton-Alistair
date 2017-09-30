@@ -55,7 +55,8 @@ To illustrate the GDP spread from the past two questions, I used a boxplot:
 
 
 ```r
-ggplot(gapminder, aes(x = continent, y = gdpPercap)) + geom_boxplot(aes(alpha = 0.5))
+p <- ggplot(gapminder, aes(x = continent, y = gdpPercap)) + geom_boxplot(alpha = 0.5)
+p + labs(title = 'Distribution of GDP per Capita') # labels
 ```
 
 ![](Assignment3_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
@@ -92,7 +93,7 @@ For my accompanying graph I decided to plot the distribution of life expectancy 
 
 
 ```r
-p <- ggplot(gapminder, aes(x = year, y = lifeExp)) + geom_point(alpha = 0.1)
+p <- ggplot(gapminder, aes(x = year, y = lifeExp)) + geom_point(alpha = 0.1) + labs(title = 'Life expectancy over time')
 p + geom_smooth(method = 'auto') # fitted curve 
 ```
 
@@ -116,7 +117,7 @@ conts <- gapminder %>%
   summarise(meanlifeExp = sum(as.numeric(yearslived))/sum(as.numeric(pop))) 
 
 # plot with colours indicating continent
-p <- ggplot(conts, aes(x = year, y = meanlifeExp))
+p <- ggplot(conts, aes(x = year, y = meanlifeExp)) + labs(title = 'Mean life expectancy over time')
 p + geom_point(aes(colour = continent))
 ```
 
@@ -124,7 +125,7 @@ p + geom_point(aes(colour = continent))
 
 ```r
 # plot distribution for each continent
-p <- ggplot(gapminder,aes(y = lifeExp, x = year))
+p <- ggplot(gapminder,aes(y = lifeExp, x = year)) + labs(title = 'Life expectancy on each continent')
 p <- p + facet_wrap(~ continent) + geom_point(alpha = 0.2) # separate graphs for each continent
 p + geom_smooth(method = 'loess', lwd = 0.5, se = T) # trend lines
 ```
@@ -144,7 +145,7 @@ conts <- gapminder %>%
   group_by(continent, year) %>% 
   summarise(lowLifeExppcent = sum(lifeExp < 57)/length(lifeExp))
 
-ggplot(conts,aes(y = lowLifeExppcent, x = year)) + geom_line(aes(colour = continent))
+ggplot(conts,aes(y = lowLifeExppcent, x = year)) + geom_line(aes(colour = continent)) + labs(title = "Countries with low life expectancy over time", y = "Percent with low life expectancy") 
 ```
 
 ![](Assignment3_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
@@ -166,27 +167,23 @@ gapminder %>%
   filter(continent == 'Africa', year > 1990, year < 2005) %>% 
   group_by(country) %>% 
   summarise(delta = lifeExp[3]-lifeExp[1], population = pop[1]) %>% # change in life expectancy over these years
-  arrange(delta) # list with worst decreases first
+  arrange(delta) %>% # list with worst decreases first
+  head()
 ```
 
 ```
-## # A tibble: 52 x 3
-##                     country   delta population
-##                      <fctr>   <dbl>      <int>
-##  1                 Zimbabwe -20.388   10704340
-##  2                 Botswana -16.111    1342614
-##  3                  Lesotho -15.092    1803195
-##  4                Swaziland -14.605     962344
-##  5                  Namibia -10.520    1554253
-##  6             South Africa  -8.523   39964159
-##  7                    Kenya  -8.293   25020539
-##  8                   Zambia  -6.907    8381163
-##  9 Central African Republic  -6.088    3265124
-## 10            Cote d'Ivoire  -5.212   12772596
-## # ... with 42 more rows
+## # A tibble: 6 x 3
+##        country   delta population
+##         <fctr>   <dbl>      <int>
+## 1     Zimbabwe -20.388   10704340
+## 2     Botswana -16.111    1342614
+## 3      Lesotho -15.092    1803195
+## 4    Swaziland -14.605     962344
+## 5      Namibia -10.520    1554253
+## 6 South Africa  -8.523   39964159
 ```
 
-As we can see, Zimbabwe had the worst change in life expectancy during the regress. Furthermore many of its neighbours join it near the top of the list, in fact we have to go to number 8, Kenya, to find a country not in southern Africa. Thus Zimbabwe is not only the worst affected, but the locus of the regress.
+As we can see, Zimbabwe had the worst change in life expectancy during the regress. Furthermore many of its neighbours join it near the top of the list, in fact each of the worst six changes in life expectancy are in southern Africa. Thus Zimbabwe is not only the worst affected, but the locus of the regress.
 
 Next, we look at how the living standards in Zimbabwe have changed over time:
 
@@ -194,7 +191,7 @@ Next, we look at how the living standards in Zimbabwe have changed over time:
 ```r
 zimbData <- filter(gapminder, country == 'Zimbabwe') 
 
-ggplot(zimbData, aes(x = year, y = lifeExp)) + geom_point(aes(size = gdpPercap)) 
+ggplot(zimbData, aes(x = year, y = lifeExp)) + geom_point(aes(size = gdpPercap)) + labs(title = "Zimbabwe QoL over time") 
 ```
 
 ![](Assignment3_files/figure-html/unnamed-chunk-10-1.png)<!-- -->

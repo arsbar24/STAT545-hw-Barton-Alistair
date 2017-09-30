@@ -36,7 +36,7 @@ gapminder %>%
 To illustrate the GDP spread from the past two questions, I used a boxplot:
 
 ```{r}
-ggplot(gapminder, aes(x = continent, y = gdpPercap)) + geom_boxplot(aes(alpha = 0.5))
+ggplot(gapminder, aes(x = continent, y = gdpPercap)) + geom_boxplot(alpha = 0.5)
 ```
 
 > Compute a trimmed mean of life expectancy for different years. Or a weighted mean, weighting by population. Just try something other than the plain vanilla mean.
@@ -108,10 +108,11 @@ gapminder %>%
   filter(continent == 'Africa', year > 1990, year < 2005) %>% 
   group_by(country) %>% 
   summarise(delta = lifeExp[3]-lifeExp[1], population = pop[1]) %>% # change in life expectancy over these years
-  arrange(delta) # list with worst decreases first
+  arrange(delta) %>% # list with worst decreases first
+  head()
 ```
 
-As we can see, Zimbabwe had the worst change in life expectancy during the regress. Furthermore many of its neighbours join it near the top of the list, in fact we have to go to number 8, Kenya, to find a country not in southern Africa. Thus Zimbabwe is not only the worst affected, but the locus of the regress.
+As we can see, Zimbabwe had the worst change in life expectancy during the regress. Furthermore many of its neighbours join it near the top of the list, in fact each of the worst six changes in life expectancy are in southern Africa. Thus Zimbabwe is not only the worst affected, but the locus of the regress.
 
 Next, we look at how the living standards in Zimbabwe have changed over time:
 
