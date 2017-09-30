@@ -36,7 +36,8 @@ gapminder %>%
 To illustrate the GDP spread from the past two questions, I used a boxplot:
 
 ```{r}
-ggplot(gapminder, aes(x = continent, y = gdpPercap)) + geom_boxplot(alpha = 0.5)
+p <- ggplot(gapminder, aes(x = continent, y = gdpPercap)) + geom_boxplot(alpha = 0.5)
+p + labs(title = 'Distribution of GDP per Capita') # labels
 ```
 
 > Compute a trimmed mean of life expectancy for different years. Or a weighted mean, weighting by population. Just try something other than the plain vanilla mean.
@@ -51,7 +52,7 @@ gapminder %>%
 For my accompanying graph I decided to plot the distribution of life expectancy with a curve fitted to it through the `geom_smooth()` function---it won't be a weighted average, but it should be close:
 
 ```{r}
-p <- ggplot(gapminder, aes(x = year, y = lifeExp)) + geom_point(alpha = 0.1)
+p <- ggplot(gapminder, aes(x = year, y = lifeExp)) + geom_point(alpha = 0.1) + labs(title = 'Life expectancy over time')
 p + geom_smooth(method = 'auto') # fitted curve 
 ```
 
@@ -68,11 +69,11 @@ conts <- gapminder %>%
   summarise(meanlifeExp = sum(as.numeric(yearslived))/sum(as.numeric(pop))) 
 
 # plot with colours indicating continent
-p <- ggplot(conts, aes(x = year, y = meanlifeExp))
+p <- ggplot(conts, aes(x = year, y = meanlifeExp)) + labs(title = 'Mean life expectancy over time')
 p + geom_point(aes(colour = continent))
 
 # plot distribution for each continent
-p <- ggplot(gapminder,aes(y = lifeExp, x = year))
+p <- ggplot(gapminder,aes(y = lifeExp, x = year)) + labs(title = 'Life expectancy on each continent')
 p <- p + facet_wrap(~ continent) + geom_point(alpha = 0.2) # separate graphs for each continent
 p + geom_smooth(method = 'loess', lwd = 0.5, se = T) # trend lines
 ```
@@ -89,7 +90,7 @@ conts <- gapminder %>%
   group_by(continent, year) %>% 
   summarise(lowLifeExppcent = sum(lifeExp < 57)/length(lifeExp))
 
-ggplot(conts,aes(y = lowLifeExppcent, x = year)) + geom_line(aes(colour = continent))
+ggplot(conts,aes(y = lowLifeExppcent, x = year)) + geom_line(aes(colour = continent)) + labs(title = "Countries with low life expectancy over time", y = "Percent with low life expectancy") 
 ```
 
 
@@ -119,7 +120,7 @@ Next, we look at how the living standards in Zimbabwe have changed over time:
 ```{r}
 zimbData <- filter(gapminder, country == 'Zimbabwe') 
 
-ggplot(zimbData, aes(x = year, y = lifeExp)) + geom_point(aes(size = gdpPercap)) 
+ggplot(zimbData, aes(x = year, y = lifeExp)) + geom_point(aes(size = gdpPercap)) + labs(title = "Zimbabwe QoL over time") 
 ```
 
 We can see that there seems to be a somewhat normal progression (albeit slow GDP growth) until 1990 where this calamity hits, at which point life expectancy decreased to the lowest level since data collection began, and remains around there at the end of our data collection (culminating in a drop of almost 40% over 15 years). Interestingly GDP per capita doesn't seem to take a significant hit until 15 years after the disaster.

@@ -6,6 +6,8 @@
 
 * Didn't know how to declare a variable as the output of piping. Found a solution in one of the lectures.
 
-* I took inspiration for many of my graphs from from [Jenny Bryan's deck on ggplot](https://speakerdeck.com/jennybc/ggplot2-tutorial). In particular for examples of how to use `facet_wrap()` and `geom_smooth()`
+* I took inspiration for many of my graphs from from [Jenny Bryan's deck on ggplot](https://speakerdeck.com/jennybc/ggplot2-tutorial). In particular for examples of how to use `facet_wrap()` and `geom_smooth()`.
 
-*
+* I chose the `method` for `geom_smooth()` either by using `auto` or whichever method gave me a fitting line.
+
+* I figured out how to label my graphs from one of the students I peer reviewed for Assignment 2.
