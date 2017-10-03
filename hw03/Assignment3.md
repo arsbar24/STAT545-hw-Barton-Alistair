@@ -165,29 +165,31 @@ conts <- gapminder %>%
 arrange(filter(conts, lowLifeExppcent != 0, year%%10 < 5),year) # only show continents/years with >0 low life expectancy, and that every ten years
 ```
 
-# A tibble: 19 x 3
-# Groups:   continent [4]
-   continent  year lowLifeExppcent
-      <fctr> <int>           <dbl>
- 1    Africa  1952            1.00
- 2  Americas  1952            0.60
- 3      Asia  1952            0.82
- 4    Europe  1952            0.10
- 5    Africa  1962            0.96
- 6  Americas  1962            0.40
- 7      Asia  1962            0.76
- 8    Europe  1962            0.03
- 9    Africa  1972            0.96
-10  Americas  1972            0.24
-11      Asia  1972            0.52
-12    Africa  1982            0.77
-13  Americas  1982            0.12
-14      Asia  1982            0.24
-15    Africa  1992            0.60
-16  Americas  1992            0.04
-17      Asia  1992            0.15
-18    Africa  2002            0.71
-19      Asia  2002            0.06
+```
+## # A tibble: 19 x 3
+## # Groups:   continent [4]
+##    continent  year lowLifeExppcent
+##       <fctr> <int>           <dbl>
+##  1    Africa  1952            1.00
+##  2  Americas  1952            0.60
+##  3      Asia  1952            0.82
+##  4    Europe  1952            0.10
+##  5    Africa  1962            0.96
+##  6  Americas  1962            0.40
+##  7      Asia  1962            0.76
+##  8    Europe  1962            0.03
+##  9    Africa  1972            0.96
+## 10  Americas  1972            0.24
+## 11      Asia  1972            0.52
+## 12    Africa  1982            0.77
+## 13  Americas  1982            0.12
+## 14      Asia  1982            0.24
+## 15    Africa  1992            0.60
+## 16  Americas  1992            0.04
+## 17      Asia  1992            0.15
+## 18    Africa  2002            0.71
+## 19      Asia  2002            0.06
+```
 
 ```r
 ggplot(conts,aes(y = lowLifeExppcent, x = year)) + geom_line(aes(colour = continent)) + labs(title = "Countries with low life expectancy over time", y = "Percent with low life expectancy") 

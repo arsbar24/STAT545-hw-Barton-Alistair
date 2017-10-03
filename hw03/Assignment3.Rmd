@@ -82,7 +82,7 @@ We can see that all the continents have improved significantly, especially Asia 
 
 I will choose the benchmark of my father's age of 57. This makes the data more meaningful as it's difficult to imagine living in a country where most people my age have lost a parent (although this may be offset by younger ages of new parents). 
 
-```{r results = 'asis'}
+```{r}
 # create dataset with continent, year, and percent of countries with 'low' life expectancy
 conts <- gapminder %>% 
   group_by(continent, year) %>% 
