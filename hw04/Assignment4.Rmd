@@ -1,0 +1,86 @@
+---
+title: "Assignment4"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(gapminder)
+suppressPackageStartupMessages(library(tidyverse))
+```
+
+
+## General data reshaping and relationship to aggregation
+
+
+## Join, merge, look up (Activity #1)
+
+In the last assignment I had wanted to superimpose a line plot corresponding to the weighted mean of the life expectancy on top of a graph of life expectancy. I didn't know how to do it at the time, but I bet I can use a join function to do it now!
+
+### Step 1: create complementary dataframe
+
+The first step is to create a dataframe that lists the weighted mean life expectancy for each continent and year:
+
+```{r}
+weightLifeExp <- gapminder %>%
+  mutate(yearsLived = lifeExp*pop) %>% 
+  group_by(year,continent) %>% 
+  summarise(meanLifeExp = sum(as.numeric(yearsLived))
+            /sum(as.numeric(pop)))
+
+head(weightLifeExp)
+```
+
+For fun, I will also include (via a `_join` function!) Antarctica with life expectancy *N/A* in the dataset (to make the different types of joins non-trivial).
+
+```{r}
+# create Antarctica
+Antarctica <- gapminder %>% 
+  filter(country == "Canada") %>% 
+  select(year) %>% 
+  mutate(continent = factor('Antarctica'))
+
+# integrate Antarctica into the data
+weightLifeExp <- weightLifeExp %>% 
+  full_join(Antarctica) %>% 
+  arrange(year, continent)
+
+head(weightLifeExp)
+```
+
+
+
+### Step 2: join data frames
+
+Now we can join the two dataframes using `_join` functions (I also remove the GDP column for compactness):
+```{r}
+meanlifegap <- gapminder %>% 
+  full_join(weightLifeExp) %>% 
+  select(-gdpPercap)
+
+head(meanlifegap)
+```
+
+
+### Step 3: make plot
+
+Not one of the steps suggested by the assignment, but I personally wanted to redo the plot from my last assignment and see how the weighted mean compared to the `loess` trend line:
+
+```{r}
+ggplot(meanlifegap, aes(year, lifeExp)) + facet_wrap(~ continent) +
+  geom_smooth(aes(color = 'blue'), method = loess, show.legend = T) +
+  geom_point(alpha = 0.1) + 
+  geom_line(aes(x = year, y = meanLifeExp, color = 'red'), show.legend = T) +
+  labs(title = 'Life expectancy on each continent', y = 'Life Expectancy') +
+  scale_color_discrete(name = "Trend Lines", labels = c("Loess trend line", "Weighted mean")) +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+We can see that they generally agree, but diverge pretty badly in the Americas and Asia at the beginning of the dataset. We can also see that the use of `full_join()` created an empty Antarctica graph (because all of those values are *NA*), and gave us the error message. 
+
+### Step 4: explore different types of joins
+
+If we wanted to get rid of the empty antarctica plot we could use `left_join()`:
