@@ -22,7 +22,7 @@ minmaxgdp <- gapminder %>%
   group_by(continent) %>% 
   summarise(maxGDPpcap = max(gdpPercap), minGDPpcap = min(gdpPercap))
 
-knitr::kable(minmaxgdp)
+minmaxgdp
 ```
 
 To illustrate this range, I used a boxplot:
@@ -40,7 +40,7 @@ weightedlife <- gapminder %>%
   group_by(year) %>% 
   summarise('mean life expectancy' = sum(as.numeric(yearslived))/sum(as.numeric(pop))) # weighted average
 
-knitr::kable(weightedlife)
+weightedlife
 ```
 
 For my accompanying graph I decided to plot the distribution of life expectancy with a curve fitted to it through the `geom_smooth()` function---it won't be a weighted average, but it should be close (I was unsucessful in my attempts to plot the weighted average on top, as documented in the [README](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw03/README.md)):
@@ -64,8 +64,7 @@ conts <- gapminder %>%
 
 # print table of value every 15 years
 conts %>% 
-  filter(year%%15 < 5) %>% 
-  knitr::kable()
+  filter(year%%15 < 5)
 
 # plot with colours indicating continent
 p <- ggplot(conts, aes(x = year, y = meanlifeExp)) + labs(title = 'Mean life expectancy over time')
@@ -89,7 +88,7 @@ conts <- gapminder %>%
   group_by(continent, year) %>% 
   summarise(lowLifeExppcent = round(sum(lifeExp < 57)/length(lifeExp),2))
 
-knitr::kable(arrange(filter(conts, lowLifeExppcent != 0, year%%10 < 5),year)) # only show continents/years with >0 low life expectancy, and that every ten years
+arrange(filter(conts, lowLifeExppcent != 0, year%%10 < 5),year) # only show continents/years with >0 low life expectancy, and that every ten years
 
 ggplot(conts,aes(y = lowLifeExppcent, x = year)) + geom_line(aes(colour = continent)) + labs(title = "Countries with low life expectancy over time", y = "Percent with low life expectancy") 
 ```
@@ -113,7 +112,7 @@ regress <- gapminder %>%
   arrange(delta) %>% # list with worst decreases first
   head()
 
-knitr::kable(regress)
+regress
 ```
 
 As we can see, Zimbabwe had the worst change in life expectancy during the regress. Furthermore many of its neighbours join it near the top of the list, in fact each of the worst six changes in life expectancy are in southern Africa. Thus Zimbabwe is not only the worst affected, but the geographic centre of the regress.
