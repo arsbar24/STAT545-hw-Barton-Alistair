@@ -106,7 +106,7 @@ p + geom_smooth(method = 'auto') # fitted curve
 
 > How is life expectancy changing over time on different continents?
 
-To investigate this we use two plots, one of the average life expectancy (to show short term trends and for easy comparison) and one of the distribution for each continent (to show outliers and long-term trends):
+To investigate this I use two plots: one of the (weighted) average life expectancy on each continent (to show short term trends and for easy comparison), and one of the distribution on each continent (to show outliers and long-term trends):
 
 
 ```r
@@ -132,7 +132,7 @@ p + geom_smooth(method = 'loess', lwd = 0.5, se = T) # trend lines
 
 ![](Assignment3_files/figure-html/unnamed-chunk-7-2.png)<!-- -->
 
-We can see that all the continents have improved significantly, especially Asia (aside from a brief fall in life expectancy in 1962) with Africa's improvement slowing down significantly since 1990. We can also see the disparities between countries on each continent, oceania seems to be consistently high (although it may be benefited from having few countries) and European countries seems to be converging, while diverging Africa has a few outliers with life expectancy over 70 and Asia seems to have medium life expectancy except one outlier with life expectancy around 40 (I suspect Afghanistan).
+We can see that all the continents have improved significantly, especially Asia (aside from a brief fall in life expectancy in 1962) with Africa's improvement slowing down significantly since 1990. We can also see the disparities between countries on each continent, oceania seems to be consistently high (although it may be benefited from having few countries) and European countries seems to be converging, while diverging Africa has a few outliers with life expectancy over 70 and Asia seems to have medium life expectancy except one extreme outlier with life expectancy around 40 (I suspect Afghanistan).
 
 > Report the absolute and/or relative abundance of countries with low life expectancy over time by continent: Compute some measure of worldwide life expectancy – you decide – a mean or median or some other quantile or perhaps your current age. Then determine how many countries on each continent have a life expectancy less than this benchmark, for each year.
 
@@ -140,7 +140,7 @@ I will choose the benchmark of my father's age of 57. This makes the data more m
 
 
 ```r
-# create dataset with continent, year, and number of countries with 'low' life expectancy
+# create dataset with continent, year, and percent of countries with 'low' life expectancy
 conts <- gapminder %>% 
   group_by(continent, year) %>% 
   summarise(lowLifeExppcent = sum(lifeExp < 57)/length(lifeExp))
@@ -157,7 +157,7 @@ In fact the number of african countries with a 'low' life expectancy has actuall
 
 > Find countries with interesting stories. Open-ended and, therefore, hard. Promising but unsuccessful attempts are encouraged. This will generate interesting questions to follow up on in class.
 
-# Zimbabwe
+## Zimbabwe
 
 I find this regress concerning and perplexing, so I'm going to make a case study of what I estimate to be the prototype of this trend: Zimbabwe.
 
@@ -183,7 +183,7 @@ gapminder %>%
 ## 6 South Africa  -8.523   39964159
 ```
 
-As we can see, Zimbabwe had the worst change in life expectancy during the regress. Furthermore many of its neighbours join it near the top of the list, in fact each of the worst six changes in life expectancy are in southern Africa. Thus Zimbabwe is not only the worst affected, but the locus of the regress.
+As we can see, Zimbabwe had the worst change in life expectancy during the regress. Furthermore many of its neighbours join it near the top of the list, in fact each of the worst six changes in life expectancy are in southern Africa. Thus Zimbabwe is not only the worst affected, but the geographic centre of the regress.
 
 Next, we look at how the living standards in Zimbabwe have changed over time:
 
