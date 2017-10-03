@@ -2,12 +2,26 @@
 
 
 
-
 Loading packages:
 
 
+```r
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(gapminder))
+suppressPackageStartupMessages(library(pander))
+```
 
 >Get the maximum and minimum of GDP per capita for all continents.
+
+
+```r
+minmaxgdp <- gapminder %>% 
+  group_by(continent) %>% 
+  summarise(maxGDPpcap = max(gdpPercap), minGDPpcap = min(gdpPercap))
+
+knitr::kable(minmaxgdp)
+```
+
 
 
 continent    maxGDPpcap   minGDPpcap
@@ -20,9 +34,26 @@ Oceania        34435.37   10039.5956
 
 To illustrate this range, I used a boxplot:
 
+
+```r
+p <- ggplot(gapminder, aes(x = continent, y = gdpPercap)) + geom_boxplot(alpha = 0.5)
+p + labs(title = 'Distribution of GDP per Capita') # labels
+```
+
 ![](Assignment3_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
 > Compute a trimmed mean of life expectancy for different years. Or a weighted mean, weighting by population. Just try something other than the plain vanilla mean.
+
+
+```r
+weightedlife <- gapminder %>% 
+  mutate(yearslived = lifeExp*pop) %>% # total years lived in each country
+  group_by(year) %>% 
+  summarise('mean life expectancy' = sum(as.numeric(yearslived))/sum(as.numeric(pop))) # weighted average
+
+knitr::kable(weightedlife)
+```
+
 
 
  year   mean life expectancy
@@ -43,6 +74,11 @@ To illustrate this range, I used a boxplot:
 For my accompanying graph I decided to plot the distribution of life expectancy with a curve fitted to it through the `geom_smooth()` function---it won't be a weighted average, but it should be close (I was unsucessful in my attempts to plot the weighted average on top, as documented in the [README](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw03/README.md)):
 
 
+```r
+p <- ggplot(gapminder, aes(x = year, y = lifeExp)) + geom_point(alpha = 0.1) + labs(title = 'Life expectancy over time')
+p + geom_smooth(method = 'auto') # fitted curve 
+```
+
 ```
 ## `geom_smooth()` using method = 'gam'
 ```
@@ -53,6 +89,21 @@ For my accompanying graph I decided to plot the distribution of life expectancy 
 > How is life expectancy changing over time on different continents?
 
 I include a small table of the values for each continet every 15 years (to keep the table compact). I also use two plots: one of the (weighted) average life expectancy on each continent (to show short term trends and for easy comparison), and one of the distribution on each continent (to show outliers and long-term trends):
+
+
+```r
+# create dataset with continent, year, and weighted average of life expectancy 
+conts <- gapminder %>% 
+  mutate(yearslived = lifeExp*pop) %>%
+  group_by(continent,year) %>% 
+  summarise(meanlifeExp = sum(as.numeric(yearslived))/sum(as.numeric(pop))) 
+
+# print table of value every 15 years
+conts %>% 
+  filter(year%%15 < 5) %>% 
+  knitr::kable()
+```
+
 
 
 continent    year   meanlifeExp
@@ -78,13 +129,39 @@ Oceania      1967      71.17848
 Oceania      1982      74.58291
 Oceania      1997      78.61843
 
-![](Assignment3_files/figure-html/unnamed-chunk-6-1.png)<!-- -->![](Assignment3_files/figure-html/unnamed-chunk-6-2.png)<!-- -->
+```r
+# plot with colours indicating continent
+p <- ggplot(conts, aes(x = year, y = meanlifeExp)) + labs(title = 'Mean life expectancy over time')
+p + geom_line(aes(colour = continent))
+```
+
+![](Assignment3_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+
+```r
+# plot distribution for each continent
+p <- ggplot(gapminder,aes(y = lifeExp, x = year)) + labs(title = 'Life expectancy on each continent')
+p <- p + facet_wrap(~ continent) + geom_point(alpha = 0.2) # separate graphs for each continent
+p + geom_smooth(method = 'loess', lwd = 0.5, se = T) # trend lines
+```
+
+![](Assignment3_files/figure-html/unnamed-chunk-6-2.png)<!-- -->
 
 We can see that all the continents have improved significantly, especially Asia (aside from a brief fall in life expectancy in 1962) with Africa's improvement slowing down significantly since 1990. We can also see the disparities between countries on each continent, oceania seems to be consistently high (although it may be benefited from having few countries) and European countries seems to be converging, while diverging Africa has a few outliers with life expectancy over 70 and Asia seems to have medium life expectancy except one extreme outlier with life expectancy around 40 (I suspect Afghanistan).
 
 > Report the absolute and/or relative abundance of countries with low life expectancy over time by continent: Compute some measure of worldwide life expectancy – you decide – a mean or median or some other quantile or perhaps your current age. Then determine how many countries on each continent have a life expectancy less than this benchmark, for each year.
 
 I will choose the benchmark of my father's age of 57. This makes the data more meaningful as it's difficult to imagine living in a country where most people my age have lost a parent (although this may be offset by younger ages of new parents). 
+
+
+```r
+# create dataset with continent, year, and percent of countries with 'low' life expectancy
+conts <- gapminder %>% 
+  group_by(continent, year) %>% 
+  summarise(lowLifeExppcent = round(sum(lifeExp < 57)/length(lifeExp),2))
+
+knitr::kable(arrange(filter(conts, lowLifeExppcent != 0, year%%10 < 5),year)) # only show continents/years with >0 low life expectancy, and that every ten years
+```
+
 
 
 continent    year   lowLifeExppcent
@@ -109,6 +186,10 @@ Asia         1992              0.15
 Africa       2002              0.71
 Asia         2002              0.06
 
+```r
+ggplot(conts,aes(y = lowLifeExppcent, x = year)) + geom_line(aes(colour = continent)) + labs(title = "Countries with low life expectancy over time", y = "Percent with low life expectancy") 
+```
+
 ![](Assignment3_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
 
 
@@ -123,6 +204,19 @@ In fact the number of african countries with a 'low' life expectancy has actuall
 I find this regress concerning and perplexing, so I'm going to make a case study of what I estimate to be the prototype of this trend: Zimbabwe. This following table of the countries with the worst regresses in that time frame lends justification to this choice:
 
 
+```r
+regress <- gapminder %>% 
+  filter(continent == 'Africa', year > 1990, year < 2005) %>% 
+  group_by(country) %>% 
+  summarise(delta = lifeExp[3]-lifeExp[1], population = pop[1]) %>% # change in life expectancy over these years
+  arrange(delta) %>% # list with worst decreases first
+  head()
+
+knitr::kable(regress)
+```
+
+
+
 country           delta   population
 -------------  --------  -----------
 Zimbabwe        -20.388     10704340
@@ -135,6 +229,13 @@ South Africa     -8.523     39964159
 As we can see, Zimbabwe had the worst change in life expectancy during the regress. Furthermore many of its neighbours join it near the top of the list, in fact each of the worst six changes in life expectancy are in southern Africa. Thus Zimbabwe is not only the worst affected, but the geographic centre of the regress.
 
 Next, we look at how the living standards in Zimbabwe have changed over time:
+
+
+```r
+zimbData <- filter(gapminder, country == 'Zimbabwe') 
+
+ggplot(zimbData, aes(x = year, y = lifeExp)) + geom_point(aes(size = gdpPercap)) + labs(title = "Zimbabwe QoL over time") 
+```
 
 ![](Assignment3_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
