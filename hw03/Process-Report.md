@@ -11,3 +11,5 @@
 * I chose the `method` for `geom_smooth()` either by using `auto` or whichever method gave me a fitting line.
 
 * I figured out how to label my graphs from one of the students I peer reviewed for Assignment 2.
+
+* I tried to add a line corresponding to my weighted mean life expectancy to my __Life expectancy over time__ graph. I found some help on StackOverflow, but ran into problems as the data sets were different lengths (weighted mean life expectancy has one value for each year, whereas gapminder has ~150) and used a trend line instead. Unsure how I would make it work otherwise.
