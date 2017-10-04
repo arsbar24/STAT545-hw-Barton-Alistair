@@ -5,7 +5,7 @@ output:
     keep_md: yes
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=TRUE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -22,6 +22,8 @@ suppressPackageStartupMessages(library(tidyverse))
 
 In the last assignment I had wanted to superimpose a line plot corresponding to the weighted mean of the life expectancy on top of a graph of life expectancy. I didn't know how to do it at the time, but I bet I can use a join function to do it now!
 
+I will use `full_join()` to supplement my data in __Step 1__ and join with gapminder data __Step 2__. In __Step 3__ I plot the results, while in __Step 4__ I explore other `_join()` functions (`left_join()`, `anti_join()`).
+
 ### Step 1: create complementary dataframe
 
 The first step is to create a dataframe that lists the weighted mean life expectancy for each continent and year:
@@ -33,17 +35,17 @@ weightLifeExp <- gapminder %>%
   summarise(meanLifeExp = sum(as.numeric(yearsLived))
             /sum(as.numeric(pop)))
 
-head(weightLifeExp)
+knitr::kable(head(weightLifeExp))
 ```
 
-For fun, I will also include (via a `_join` function!) Antarctica with life expectancy *N/A* in the dataset (to make the different types of joins non-trivial).
+For fun, I will also include (via a `full_join` function!) Antarctica with life expectancy *NA* in the dataset (to make the different types of joins non-trivial).
 
 ```{r}
 # create Antarctica
 Antarctica <- gapminder %>% 
   filter(country == "Canada") %>% 
-  select(year) %>% 
-  mutate(continent = factor('Antarctica'))
+  select(year) %>% # Just get a sequence of the years we have data for
+  mutate(continent = factor('Antarctica'), penguins = floor(10^(8*2000/jitter(year))/jitter(year)))
 
 # integrate Antarctica into the data
 weightLifeExp <- weightLifeExp %>% 
@@ -85,4 +87,48 @@ We can see that they generally agree, but diverge pretty badly in the Americas a
 
 ### Step 4: explore different types of joins
 
+We can quickly double check that Antarctica is the only continent unrepresented in the gapminder database using `inner_join()`:
+
+```{r}
+anti_join(weightLifeExp, gapminder)
+
+anti_join(gapminder, weightLifeExp)
+```
+
+This shows us that the only rows in `weightLifeExp` with continent and year not in `gapminder` are Antarctica, while there are no rows in `gapminder` with either continent or year not in `weightLifeExp`.
+
 If we wanted to get rid of the empty antarctica plot we could use `left_join()`:
+
+```{r}
+meanlifegap <- left_join(gapminder, weightLifeExp)
+
+ggplot(meanlifegap, aes(year, lifeExp)) + facet_wrap(~ continent) +
+  geom_smooth(aes(color = 'blue'), method = loess, show.legend = T) +
+  geom_point(alpha = 0.1) + 
+  geom_line(aes(x = year, y = meanLifeExp, color = 'red'), show.legend = T) +
+  labs(title = 'Life expectancy on each continent', y = 'Life Expectancy') +
+  scale_color_discrete(name = "Trend Lines", labels = c("Loess trend line", "Weighted mean")) +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+To explore the rest of the functions I'm going to trucate data quite a bit by considering only Canadian data after the centennial:
+
+```{r}
+Canada100 <- gapminder %>%
+  filter(country == 'Canada', year >= 1967)
+```
+
+We can see what data in `weightLifeExp` corresponds to this new dataset by using the `semi_join()` function:
+
+```{r}
+semi_join(weightLifeExp, Canada100)
+```
+
+Likewise, if we want to see all the data we have corresponding to this dataset, we can use the `inner_join()` function:
+
+```{r}
+inner_join(weightLifeExp, Canada100)
+```
+
+### Step 5 (Activity #3): `merge()` and `match()`
+
