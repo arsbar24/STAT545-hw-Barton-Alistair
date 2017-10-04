@@ -3,6 +3,7 @@
 
 ```r
 knitr::opts_chunk$set(echo = TRUE)
+options(knitr.table.format = 'markdown')
 ```
 
 
@@ -38,14 +39,14 @@ knitr::kable(head(weightLifeExp))
 
 
 
- year  continent    meanLifeExp
------  ----------  ------------
- 1952  Africa          38.79973
- 1952  Americas        60.23599
- 1952  Asia            42.94114
- 1952  Europe          64.90540
- 1952  Oceania         69.17040
- 1957  Africa          40.94031
+| year|continent | meanLifeExp|
+|----:|:---------|-----------:|
+| 1952|Africa    |    38.79973|
+| 1952|Americas  |    60.23599|
+| 1952|Asia      |    42.94114|
+| 1952|Europe    |    64.90540|
+| 1952|Oceania   |    69.17040|
+| 1957|Africa    |    40.94031|
 
 For fun, I will also include (via a `full_join` function!) Antarctica with life expectancy *NA* in the dataset (to make the different types of joins non-trivial).
 
@@ -83,7 +84,7 @@ head(weightLifeExp)
 ##   <int>      <chr>       <dbl>    <dbl>
 ## 1  1952     Africa    38.79973       NA
 ## 2  1952   Americas    60.23599       NA
-## 3  1952 Antarctica          NA    81220
+## 3  1952 Antarctica          NA    80897
 ## 4  1952       Asia    42.94114       NA
 ## 5  1952     Europe    64.90540       NA
 ## 6  1952    Oceania    69.17040       NA
@@ -177,18 +178,18 @@ anti_join(weightLifeExp, gapminder)
 ## # Groups:   year [?]
 ##     year  continent meanLifeExp penguins
 ##    <int>      <chr>       <dbl>    <dbl>
-##  1  1952 Antarctica          NA    81220
-##  2  1957 Antarctica          NA    76764
-##  3  1962 Antarctica          NA    72348
-##  4  1967 Antarctica          NA    69488
-##  5  1972 Antarctica          NA    66312
-##  6  1977 Antarctica          NA    63146
-##  7  1982 Antarctica          NA    59574
-##  8  1987 Antarctica          NA    56666
-##  9  1992 Antarctica          NA    53698
-## 10  1997 Antarctica          NA    51798
-## 11  2002 Antarctica          NA    49287
-## 12  2007 Antarctica          NA    46480
+##  1  1952 Antarctica          NA    80897
+##  2  1957 Antarctica          NA    77072
+##  3  1962 Antarctica          NA    72220
+##  4  1967 Antarctica          NA    69653
+##  5  1972 Antarctica          NA    66328
+##  6  1977 Antarctica          NA    63197
+##  7  1982 Antarctica          NA    59496
+##  8  1987 Antarctica          NA    56833
+##  9  1992 Antarctica          NA    54414
+## 10  1997 Antarctica          NA    51579
+## 11  2002 Antarctica          NA    49426
+## 12  2007 Antarctica          NA    46961
 ```
 
 ```r
