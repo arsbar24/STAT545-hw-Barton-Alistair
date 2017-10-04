@@ -1,6 +1,9 @@
 # Assignment4
 
 
+```r
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 
 ```r
@@ -30,21 +33,19 @@ weightLifeExp <- gapminder %>%
   summarise(meanLifeExp = sum(as.numeric(yearsLived))
             /sum(as.numeric(pop)))
 
-head(weightLifeExp)
+knitr::kable(head(weightLifeExp))
 ```
 
-```
-## # A tibble: 6 x 3
-## # Groups:   year [2]
-##    year continent meanLifeExp
-##   <int>    <fctr>       <dbl>
-## 1  1952    Africa    38.79973
-## 2  1952  Americas    60.23599
-## 3  1952      Asia    42.94114
-## 4  1952    Europe    64.90540
-## 5  1952   Oceania    69.17040
-## 6  1957    Africa    40.94031
-```
+
+
+ year  continent    meanLifeExp
+-----  ----------  ------------
+ 1952  Africa          38.79973
+ 1952  Americas        60.23599
+ 1952  Asia            42.94114
+ 1952  Europe          64.90540
+ 1952  Oceania         69.17040
+ 1957  Africa          40.94031
 
 For fun, I will also include (via a `full_join` function!) Antarctica with life expectancy *NA* in the dataset (to make the different types of joins non-trivial).
 
@@ -82,7 +83,7 @@ head(weightLifeExp)
 ##   <int>      <chr>       <dbl>    <dbl>
 ## 1  1952     Africa    38.79973       NA
 ## 2  1952   Americas    60.23599       NA
-## 3  1952 Antarctica          NA    80192
+## 3  1952 Antarctica          NA    81220
 ## 4  1952       Asia    42.94114       NA
 ## 5  1952     Europe    64.90540       NA
 ## 6  1952    Oceania    69.17040       NA
@@ -176,18 +177,18 @@ anti_join(weightLifeExp, gapminder)
 ## # Groups:   year [?]
 ##     year  continent meanLifeExp penguins
 ##    <int>      <chr>       <dbl>    <dbl>
-##  1  1952 Antarctica          NA    80192
-##  2  1957 Antarctica          NA    76699
-##  3  1962 Antarctica          NA    72358
-##  4  1967 Antarctica          NA    69377
-##  5  1972 Antarctica          NA    65260
-##  6  1977 Antarctica          NA    62139
-##  7  1982 Antarctica          NA    59430
-##  8  1987 Antarctica          NA    56415
-##  9  1992 Antarctica          NA    54069
-## 10  1997 Antarctica          NA    51400
-## 11  2002 Antarctica          NA    48814
-## 12  2007 Antarctica          NA    46613
+##  1  1952 Antarctica          NA    81220
+##  2  1957 Antarctica          NA    76764
+##  3  1962 Antarctica          NA    72348
+##  4  1967 Antarctica          NA    69488
+##  5  1972 Antarctica          NA    66312
+##  6  1977 Antarctica          NA    63146
+##  7  1982 Antarctica          NA    59574
+##  8  1987 Antarctica          NA    56666
+##  9  1992 Antarctica          NA    53698
+## 10  1997 Antarctica          NA    51798
+## 11  2002 Antarctica          NA    49287
+## 12  2007 Antarctica          NA    46480
 ```
 
 ```r
@@ -312,3 +313,4 @@ inner_join(weightLifeExp, Canada100)
 ```
 
 ### Step 5 (Activity #3): `merge()` and `match()`
+
