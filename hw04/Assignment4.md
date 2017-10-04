@@ -74,21 +74,19 @@ weightLifeExp <- weightLifeExp %>%
 ```
 
 ```r
-head(weightLifeExp)
+knitr::kable(head(weightLifeExp))
 ```
 
-```
-## # A tibble: 6 x 4
-## # Groups:   year [1]
-##    year  continent meanLifeExp penguins
-##   <int>      <chr>       <dbl>    <dbl>
-## 1  1952     Africa    38.79973       NA
-## 2  1952   Americas    60.23599       NA
-## 3  1952 Antarctica          NA    80897
-## 4  1952       Asia    42.94114       NA
-## 5  1952     Europe    64.90540       NA
-## 6  1952    Oceania    69.17040       NA
-```
+
+
+| year|continent  | meanLifeExp| penguins|
+|----:|:----------|-----------:|--------:|
+| 1952|Africa     |    38.79973|       NA|
+| 1952|Americas   |    60.23599|       NA|
+| 1952|Antarctica |          NA|    80379|
+| 1952|Asia       |    42.94114|       NA|
+| 1952|Europe     |    64.90540|       NA|
+| 1952|Oceania    |    69.17040|       NA|
 
 
 
@@ -112,20 +110,19 @@ meanlifegap <- gapminder %>%
 ```
 
 ```r
-head(meanlifegap)
+knitr::kable(head(meanlifegap))
 ```
 
-```
-## # A tibble: 6 x 7
-##       country continent  year lifeExp      pop meanLifeExp penguins
-##        <fctr>     <chr> <int>   <dbl>    <int>       <dbl>    <dbl>
-## 1 Afghanistan      Asia  1952  28.801  8425333    42.94114       NA
-## 2 Afghanistan      Asia  1957  30.332  9240934    47.28835       NA
-## 3 Afghanistan      Asia  1962  31.997 10267083    46.57369       NA
-## 4 Afghanistan      Asia  1967  34.020 11537966    53.88261       NA
-## 5 Afghanistan      Asia  1972  36.088 13079460    57.52159       NA
-## 6 Afghanistan      Asia  1977  38.438 14880372    59.55648       NA
-```
+
+
+|country     |continent | year| lifeExp|      pop| meanLifeExp| penguins|
+|:-----------|:---------|----:|-------:|--------:|-----------:|--------:|
+|Afghanistan |Asia      | 1952|  28.801|  8425333|    42.94114|       NA|
+|Afghanistan |Asia      | 1957|  30.332|  9240934|    47.28835|       NA|
+|Afghanistan |Asia      | 1962|  31.997| 10267083|    46.57369|       NA|
+|Afghanistan |Asia      | 1967|  34.020| 11537966|    53.88261|       NA|
+|Afghanistan |Asia      | 1972|  36.088| 13079460|    57.52159|       NA|
+|Afghanistan |Asia      | 1977|  38.438| 14880372|    59.55648|       NA|
 
 
 ### Step 3: make plot
@@ -161,7 +158,7 @@ We can quickly double check that Antarctica is the only continent unrepresented 
 
 
 ```r
-anti_join(weightLifeExp, gapminder)
+knitr::kable(anti_join(weightLifeExp, gapminder))
 ```
 
 ```
@@ -173,27 +170,25 @@ anti_join(weightLifeExp, gapminder)
 ## into character vector
 ```
 
-```
-## # A tibble: 12 x 4
-## # Groups:   year [?]
-##     year  continent meanLifeExp penguins
-##    <int>      <chr>       <dbl>    <dbl>
-##  1  1952 Antarctica          NA    80897
-##  2  1957 Antarctica          NA    77072
-##  3  1962 Antarctica          NA    72220
-##  4  1967 Antarctica          NA    69653
-##  5  1972 Antarctica          NA    66328
-##  6  1977 Antarctica          NA    63197
-##  7  1982 Antarctica          NA    59496
-##  8  1987 Antarctica          NA    56833
-##  9  1992 Antarctica          NA    54414
-## 10  1997 Antarctica          NA    51579
-## 11  2002 Antarctica          NA    49426
-## 12  2007 Antarctica          NA    46961
-```
+
+
+| year|continent  | meanLifeExp| penguins|
+|----:|:----------|-----------:|--------:|
+| 1952|Antarctica |          NA|    80379|
+| 1957|Antarctica |          NA|    76465|
+| 1962|Antarctica |          NA|    72531|
+| 1967|Antarctica |          NA|    69187|
+| 1972|Antarctica |          NA|    66246|
+| 1977|Antarctica |          NA|    63017|
+| 1982|Antarctica |          NA|    59248|
+| 1987|Antarctica |          NA|    56731|
+| 1992|Antarctica |          NA|    54153|
+| 1997|Antarctica |          NA|    51513|
+| 2002|Antarctica |          NA|    49249|
+| 2007|Antarctica |          NA|    46627|
 
 ```r
-anti_join(gapminder, weightLifeExp)
+knitr::kable(anti_join(gapminder, weightLifeExp))
 ```
 
 ```
@@ -205,11 +200,10 @@ anti_join(gapminder, weightLifeExp)
 ## into character vector
 ```
 
-```
-## # A tibble: 0 x 6
-## # ... with 6 variables: country <fctr>, continent <fctr>, year <int>,
-## #   lifeExp <dbl>, pop <int>, gdpPercap <dbl>
-```
+
+
+|country |continent | year| lifeExp| pop| gdpPercap|
+|:-------|:---------|----:|-------:|---:|---------:|
 
 This shows us that the only rows in `weightLifeExp` with continent and year not in `gapminder` are Antarctica, while there are no rows in `gapminder` with either continent or year not in `weightLifeExp`.
 
@@ -253,7 +247,7 @@ We can see what data in `weightLifeExp` corresponds to this new dataset by using
 
 
 ```r
-semi_join(weightLifeExp, Canada100)
+knitr::kable(semi_join(weightLifeExp, Canada100))
 ```
 
 ```
@@ -265,27 +259,25 @@ semi_join(weightLifeExp, Canada100)
 ## into character vector
 ```
 
-```
-## # A tibble: 9 x 4
-## # Groups:   year [?]
-##    year continent meanLifeExp penguins
-##   <int>     <chr>       <dbl>    <dbl>
-## 1  1967  Americas    64.50630       NA
-## 2  1972  Americas    65.70490       NA
-## 3  1977  Americas    67.60591       NA
-## 4  1982  Americas    69.19264       NA
-## 5  1987  Americas    70.35814       NA
-## 6  1992  Americas    71.72177       NA
-## 7  1997  Americas    73.19154       NA
-## 8  2002  Americas    74.24736       NA
-## 9  2007  Americas    75.35668       NA
-```
+
+
+| year|continent | meanLifeExp| penguins|
+|----:|:---------|-----------:|--------:|
+| 1967|Americas  |    64.50630|       NA|
+| 1972|Americas  |    65.70490|       NA|
+| 1977|Americas  |    67.60591|       NA|
+| 1982|Americas  |    69.19264|       NA|
+| 1987|Americas  |    70.35814|       NA|
+| 1992|Americas  |    71.72177|       NA|
+| 1997|Americas  |    73.19154|       NA|
+| 2002|Americas  |    74.24736|       NA|
+| 2007|Americas  |    75.35668|       NA|
 
 Likewise, if we want to see all the data we have corresponding to this dataset, we can use the `inner_join()` function:
 
 
 ```r
-inner_join(weightLifeExp, Canada100)
+knitr::kable(inner_join(weightLifeExp, Canada100))
 ```
 
 ```
@@ -297,21 +289,89 @@ inner_join(weightLifeExp, Canada100)
 ## into character vector
 ```
 
-```
-## # A tibble: 9 x 8
-## # Groups:   year [?]
-##    year continent meanLifeExp penguins country lifeExp      pop gdpPercap
-##   <int>     <chr>       <dbl>    <dbl>  <fctr>   <dbl>    <int>     <dbl>
-## 1  1967  Americas    64.50630       NA  Canada  72.130 20819767  16076.59
-## 2  1972  Americas    65.70490       NA  Canada  72.880 22284500  18970.57
-## 3  1977  Americas    67.60591       NA  Canada  74.210 23796400  22090.88
-## 4  1982  Americas    69.19264       NA  Canada  75.760 25201900  22898.79
-## 5  1987  Americas    70.35814       NA  Canada  76.860 26549700  26626.52
-## 6  1992  Americas    71.72177       NA  Canada  77.950 28523502  26342.88
-## 7  1997  Americas    73.19154       NA  Canada  78.610 30305843  28954.93
-## 8  2002  Americas    74.24736       NA  Canada  79.770 31902268  33328.97
-## 9  2007  Americas    75.35668       NA  Canada  80.653 33390141  36319.24
+
+
+| year|continent | meanLifeExp| penguins|country | lifeExp|      pop| gdpPercap|
+|----:|:---------|-----------:|--------:|:-------|-------:|--------:|---------:|
+| 1967|Americas  |    64.50630|       NA|Canada  |  72.130| 20819767|  16076.59|
+| 1972|Americas  |    65.70490|       NA|Canada  |  72.880| 22284500|  18970.57|
+| 1977|Americas  |    67.60591|       NA|Canada  |  74.210| 23796400|  22090.88|
+| 1982|Americas  |    69.19264|       NA|Canada  |  75.760| 25201900|  22898.79|
+| 1987|Americas  |    70.35814|       NA|Canada  |  76.860| 26549700|  26626.52|
+| 1992|Americas  |    71.72177|       NA|Canada  |  77.950| 28523502|  26342.88|
+| 1997|Americas  |    73.19154|       NA|Canada  |  78.610| 30305843|  28954.93|
+| 2002|Americas  |    74.24736|       NA|Canada  |  79.770| 31902268|  33328.97|
+| 2007|Americas  |    75.35668|       NA|Canada  |  80.653| 33390141|  36319.24|
+
+### Step 5 (Activity #3): Investigate `merge()` 
+
+Let's experiment with `merge()`:
+
+
+```r
+knitr::kable(merge(Canada100, weightLifeExp))
 ```
 
-### Step 5 (Activity #3): `merge()` and `match()`
 
+
+|continent | year|country | lifeExp|      pop| gdpPercap| meanLifeExp| penguins|
+|:---------|----:|:-------|-------:|--------:|---------:|-----------:|--------:|
+|Americas  | 1967|Canada  |  72.130| 20819767|  16076.59|    64.50630|       NA|
+|Americas  | 1972|Canada  |  72.880| 22284500|  18970.57|    65.70490|       NA|
+|Americas  | 1977|Canada  |  74.210| 23796400|  22090.88|    67.60591|       NA|
+|Americas  | 1982|Canada  |  75.760| 25201900|  22898.79|    69.19264|       NA|
+|Americas  | 1987|Canada  |  76.860| 26549700|  26626.52|    70.35814|       NA|
+|Americas  | 1992|Canada  |  77.950| 28523502|  26342.88|    71.72177|       NA|
+|Americas  | 1997|Canada  |  78.610| 30305843|  28954.93|    73.19154|       NA|
+|Americas  | 2002|Canada  |  79.770| 31902268|  33328.97|    74.24736|       NA|
+|Americas  | 2007|Canada  |  80.653| 33390141|  36319.24|    75.35668|       NA|
+
+We can see it collects all the data from both datasets that corresponds to Americas after 1967. This seems similar to `left_join()`. In fact if you compare below, we can see the only contrasts are that `merge()` lists the common columns first, while `left_join()` lists the columns in the first argument first:
+
+
+```r
+knitr::kable(left_join(Canada100, weightLifeExp))
+```
+
+```
+## Joining, by = c("continent", "year")
+```
+
+```
+## Warning: Column `continent` joining factor and character vector, coercing
+## into character vector
+```
+
+
+
+|country |continent | year| lifeExp|      pop| gdpPercap| meanLifeExp| penguins|
+|:-------|:---------|----:|-------:|--------:|---------:|-----------:|--------:|
+|Canada  |Americas  | 1967|  72.130| 20819767|  16076.59|    64.50630|       NA|
+|Canada  |Americas  | 1972|  72.880| 22284500|  18970.57|    65.70490|       NA|
+|Canada  |Americas  | 1977|  74.210| 23796400|  22090.88|    67.60591|       NA|
+|Canada  |Americas  | 1982|  75.760| 25201900|  22898.79|    69.19264|       NA|
+|Canada  |Americas  | 1987|  76.860| 26549700|  26626.52|    70.35814|       NA|
+|Canada  |Americas  | 1992|  77.950| 28523502|  26342.88|    71.72177|       NA|
+|Canada  |Americas  | 1997|  78.610| 30305843|  28954.93|    73.19154|       NA|
+|Canada  |Americas  | 2002|  79.770| 31902268|  33328.97|    74.24736|       NA|
+|Canada  |Americas  | 2007|  80.653| 33390141|  36319.24|    75.35668|       NA|
+
+### Step 6: Investigate `match()`
+
+`match()` function seems to be a good way to find a data entry if you only know part of it. For example if I remember there's a country with life expectancy around 23 years old and another with 82, but can't remember anything else about them, I can type:
+ 
+
+```r
+earlyGrave <- match(c(23,82), floor(gapminder$lifeExp))
+
+knitr::kable(gapminder[earlyGrave,])
+```
+
+
+
+|country          |continent | year| lifeExp|     pop|  gdpPercap|
+|:----------------|:---------|----:|-------:|-------:|----------:|
+|Rwanda           |Africa    | 1992|  23.599| 7290203|   737.0686|
+|Hong Kong, China |Asia      | 2007|  82.208| 6980412| 39724.9787|
+
+Here, `match()` returns the position of the entry with `floor(lifeExp)=23`. Off the top of my head I don't know why one would use this rather than `filter()` and this doesn't really seem similar to any `_join()` functions as they take table inputs and output tables, while `match()` takes in vectors and outputs scalars...

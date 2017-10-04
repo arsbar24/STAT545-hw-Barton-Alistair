@@ -53,7 +53,7 @@ weightLifeExp <- weightLifeExp %>%
   full_join(Antarctica) %>% 
   arrange(year, continent)
 
-head(weightLifeExp)
+knitr::kable(head(weightLifeExp))
 ```
 
 
@@ -66,7 +66,7 @@ meanlifegap <- gapminder %>%
   full_join(weightLifeExp) %>% 
   select(-gdpPercap)
 
-head(meanlifegap)
+knitr::kable(head(meanlifegap))
 ```
 
 
@@ -91,9 +91,9 @@ We can see that they generally agree, but diverge pretty badly in the Americas a
 We can quickly double check that Antarctica is the only continent unrepresented in the gapminder database using `inner_join()`:
 
 ```{r}
-anti_join(weightLifeExp, gapminder)
+knitr::kable(anti_join(weightLifeExp, gapminder))
 
-anti_join(gapminder, weightLifeExp)
+knitr::kable(anti_join(gapminder, weightLifeExp))
 ```
 
 This shows us that the only rows in `weightLifeExp` with continent and year not in `gapminder` are Antarctica, while there are no rows in `gapminder` with either continent or year not in `weightLifeExp`.
@@ -122,14 +122,37 @@ Canada100 <- gapminder %>%
 We can see what data in `weightLifeExp` corresponds to this new dataset by using the `semi_join()` function:
 
 ```{r}
-semi_join(weightLifeExp, Canada100)
+knitr::kable(semi_join(weightLifeExp, Canada100))
 ```
 
 Likewise, if we want to see all the data we have corresponding to this dataset, we can use the `inner_join()` function:
 
 ```{r}
-inner_join(weightLifeExp, Canada100)
+knitr::kable(inner_join(weightLifeExp, Canada100))
 ```
 
-### Step 5 (Activity #3): `merge()` and `match()`
+### Step 5 (Activity #3): Investigate `merge()` 
 
+Let's experiment with `merge()`:
+
+```{r}
+knitr::kable(merge(Canada100, weightLifeExp))
+```
+
+We can see it collects all the data from both datasets that corresponds to Americas after 1967. This seems similar to `left_join()`. In fact if you compare below, we can see the only contrasts are that `merge()` lists the common columns first, while `left_join()` lists the columns in the first argument first:
+
+```{r}
+knitr::kable(left_join(Canada100, weightLifeExp))
+```
+
+### Step 6: Investigate `match()`
+
+`match()` function seems to be a good way to find a data entry if you only know part of it. For example if I remember there's a country with life expectancy around 23 years old and another with 82, but can't remember anything else about them, I can type:
+ 
+```{r}
+earlyGrave <- match(c(23,82), floor(gapminder$lifeExp))
+
+knitr::kable(gapminder[earlyGrave,])
+```
+
+Here, `match()` returns the position of the entry with `floor(lifeExp)=23`. Off the top of my head I don't know why one would use this rather than `filter()` and this doesn't really seem similar to any `_join()` functions as they take table inputs and output tables, while `match()` takes in vectors and outputs scalars...
