@@ -13,8 +13,64 @@ suppressPackageStartupMessages(library(tidyverse))
 ```
 
 
-## General data reshaping and relationship to aggregation
+## General data reshaping and relationship to aggregation (Activity #3)
 
+I want to compare how neighbouring countries relate to eachother so I selected a pair of neighbours from each continent, except Australia:
+
+
+```r
+Neighbours <- gapminder %>% 
+  filter(country %in% c("Honduras", "Nicaragua","Sudan", "Chad", "Myanmar", "Thailand", "Poland", "Germany")) %>% 
+  select(-gdpPercap,-pop,-continent)
+```
+
+We can see that there's a pretty good correspondence between Nicaragua and Honduras, and Sudan and Chad:
+
+
+```r
+NeighLife <- Neighbours %>% 
+  group_by(year) %>% 
+  spread(country, lifeExp)
+
+knitr::kable(NeighLife)
+```
+
+
+
+| year|   Chad| Germany| Honduras| Myanmar| Nicaragua| Poland|  Sudan| Thailand|
+|----:|------:|-------:|--------:|-------:|---------:|------:|------:|--------:|
+| 1952| 38.092|  67.500|   41.912|  36.319|    42.314| 61.310| 38.635|   50.848|
+| 1957| 39.881|  69.100|   44.665|  41.905|    45.432| 65.770| 39.624|   53.630|
+| 1962| 41.716|  70.300|   48.041|  45.108|    48.632| 67.640| 40.870|   56.061|
+| 1967| 43.601|  70.800|   50.924|  49.379|    51.884| 69.610| 42.858|   58.285|
+| 1972| 45.569|  71.000|   53.884|  53.070|    55.151| 70.850| 45.083|   60.405|
+| 1977| 47.383|  72.500|   57.402|  56.059|    57.470| 70.670| 47.800|   62.494|
+| 1982| 49.517|  73.800|   60.909|  58.056|    59.298| 71.320| 50.338|   64.597|
+| 1987| 51.051|  74.847|   64.492|  58.339|    62.008| 70.980| 51.744|   66.084|
+| 1992| 51.724|  76.070|   66.399|  59.320|    65.843| 70.990| 53.556|   67.298|
+| 1997| 51.573|  77.340|   67.659|  60.328|    68.426| 72.750| 55.373|   67.521|
+| 2002| 50.525|  78.670|   68.565|  59.908|    70.836| 74.670| 56.369|   68.564|
+| 2007| 50.651|  79.406|   70.198|  62.069|    72.899| 75.563| 58.556|   70.616|
+
+But it might be easier to compare if we plot their life expectancies against eachother:
+
+
+```r
+ggplot(NeighLife, aes(Sudan, Chad)) + geom_point(aes(color = 'blue')) +
+  geom_point(aes(Nicaragua, Honduras, color = 'red')) +
+  geom_point(aes(Myanmar, Thailand, color = 'green')) +
+  geom_point(aes(Poland, Germany, color = 'yellow')) +
+  labs(title = 'Life expectancy in neighbouring countries', y = 'Life Expectancy in Country 1', x = 'Life Expectancy in Country 2') +
+  scale_color_discrete(name = "Country Pairs", labels = c("Chad, Sudan", "Thailand, Myanmar", "Honduras, Nicaragua", "Germany, Poland")) +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  geom_line(aes(Nicaragua, Nicaragua))
+```
+
+![](Assignment4_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+
+Comparing with the black line (indicating equal life expectancy), we see that Nicaragua and Honduras do match almost identically, same with Sudan and Chad, at least until the recent stalling in Chad's life expectancy which perplexingly seems to correspond to the end of their civil war...
+
+There generally seems to be a high level of correspondance in the data, with Thailand and Myanmar seeming to be the only major deviation.
 
 ## Join, merge, look up (Activity #1)
 
@@ -56,7 +112,7 @@ For fun, I will also include (via a `full_join` function!) Antarctica with life 
 Antarctica <- gapminder %>% 
   filter(country == "Canada") %>% 
   select(year) %>% # Just get a sequence of the years we have data for
-  mutate(continent = factor('Antarctica'), penguins = floor(10^(8*2000/jitter(year))/jitter(year)))
+  mutate(continent = factor('Antarctica'), penguins = floor(10^(10*2000/jitter(year))/jitter(year)))
 
 # integrate Antarctica into the data
 weightLifeExp <- weightLifeExp %>% 
@@ -83,7 +139,7 @@ knitr::kable(head(weightLifeExp))
 |----:|:----------|-----------:|--------:|
 | 1952|Africa     |    38.79973|       NA|
 | 1952|Americas   |    60.23599|       NA|
-| 1952|Antarctica |          NA|    80379|
+| 1952|Antarctica |          NA|  9100009|
 | 1952|Asia       |    42.94114|       NA|
 | 1952|Europe     |    64.90540|       NA|
 | 1952|Oceania    |    69.17040|       NA|
@@ -148,13 +204,13 @@ ggplot(meanlifegap, aes(year, lifeExp)) + facet_wrap(~ continent) +
 ## Warning: Removed 12 rows containing missing values (geom_point).
 ```
 
-![](Assignment4_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+![](Assignment4_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
 
-We can see that they generally agree, but diverge pretty badly in the Americas and Asia at the beginning of the dataset. We can also see that the use of `full_join()` created an empty Antarctica graph (because all of those values are *NA*), and gave us the error message. 
+We can see that they generally agree, but diverge pretty badly in the Americas and Asia at the beginning of the dataset. We can also see that the use of `full_join()` created an empty Antarctica graph (because all of those values are *NA*), and gave us the warning message. 
 
 ### Step 4: explore different types of joins
 
-We can quickly double check that Antarctica is the only continent unrepresented in the gapminder database using `inner_join()`:
+We can quickly double check that Antarctica is the only continent unrepresented in the `gapminder` database using `anti_join()`:
 
 
 ```r
@@ -174,18 +230,21 @@ knitr::kable(anti_join(weightLifeExp, gapminder))
 
 | year|continent  | meanLifeExp| penguins|
 |----:|:----------|-----------:|--------:|
-| 1952|Antarctica |          NA|    80379|
-| 1957|Antarctica |          NA|    76465|
-| 1962|Antarctica |          NA|    72531|
-| 1967|Antarctica |          NA|    69187|
-| 1972|Antarctica |          NA|    66246|
-| 1977|Antarctica |          NA|    63017|
-| 1982|Antarctica |          NA|    59248|
-| 1987|Antarctica |          NA|    56731|
-| 1992|Antarctica |          NA|    54153|
-| 1997|Antarctica |          NA|    51513|
-| 2002|Antarctica |          NA|    49249|
-| 2007|Antarctica |          NA|    46627|
+| 1952|Antarctica |          NA|  9100009|
+| 1957|Antarctica |          NA|  8535049|
+| 1962|Antarctica |          NA|  8053513|
+| 1967|Antarctica |          NA|  7468249|
+| 1972|Antarctica |          NA|  7106433|
+| 1977|Antarctica |          NA|  6536026|
+| 1982|Antarctica |          NA|  6196735|
+| 1987|Antarctica |          NA|  5835794|
+| 1992|Antarctica |          NA|  5510243|
+| 1997|Antarctica |          NA|  5128566|
+| 2002|Antarctica |          NA|  4879044|
+| 2007|Antarctica |          NA|  4619510|
+
+Similarly, we can see that there is no `gapminder` data whose year/continent is not represented in the `weightLifeExp` dataset:
+
 
 ```r
 knitr::kable(anti_join(gapminder, weightLifeExp))
@@ -223,17 +282,9 @@ meanlifegap <- left_join(gapminder, weightLifeExp)
 ## into character vector
 ```
 
-```r
-ggplot(meanlifegap, aes(year, lifeExp)) + facet_wrap(~ continent) +
-  geom_smooth(aes(color = 'blue'), method = loess, show.legend = T) +
-  geom_point(alpha = 0.1) + 
-  geom_line(aes(x = year, y = meanLifeExp, color = 'red'), show.legend = T) +
-  labs(title = 'Life expectancy on each continent', y = 'Life Expectancy') +
-  scale_color_discrete(name = "Trend Lines", labels = c("Loess trend line", "Weighted mean")) +
-  theme(plot.title = element_text(hjust = 0.5))
-```
+which removes Antarctica from the plot:
 
-![](Assignment4_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+![](Assignment4_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
 
 To explore the rest of the functions I'm going to trucate data quite a bit by considering only Canadian data after the centennial:
 

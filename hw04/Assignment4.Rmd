@@ -16,8 +16,42 @@ suppressPackageStartupMessages(library(tidyverse))
 ```
 
 
-## General data reshaping and relationship to aggregation
+## General data reshaping and relationship to aggregation (Activity #3)
 
+I want to compare how neighbouring countries relate to eachother so I selected a pair of neighbours from each continent, except Australia:
+
+```{r}
+Neighbours <- gapminder %>% 
+  filter(country %in% c("Honduras", "Nicaragua","Sudan", "Chad", "Myanmar", "Thailand", "Poland", "Germany")) %>% 
+  select(-gdpPercap,-pop,-continent)
+```
+
+We can see that there's a pretty good correspondence between Nicaragua and Honduras, and Sudan and Chad:
+
+```{r}
+NeighLife <- Neighbours %>% 
+  group_by(year) %>% 
+  spread(country, lifeExp)
+
+knitr::kable(NeighLife)
+```
+
+But it might be easier to compare if we plot their life expectancies against eachother:
+
+```{r}
+ggplot(NeighLife, aes(Sudan, Chad)) + geom_point(aes(color = 'blue')) +
+  geom_point(aes(Nicaragua, Honduras, color = 'red')) +
+  geom_point(aes(Myanmar, Thailand, color = 'green')) +
+  geom_point(aes(Poland, Germany, color = 'yellow')) +
+  labs(title = 'Life expectancy in neighbouring countries', y = 'Life Expectancy in Country 1', x = 'Life Expectancy in Country 2') +
+  scale_color_discrete(name = "Country Pairs", labels = c("Chad, Sudan", "Thailand, Myanmar", "Honduras, Nicaragua", "Germany, Poland")) +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  geom_line(aes(Nicaragua, Nicaragua))
+```
+
+Comparing with the black line (indicating equal life expectancy), we see that Nicaragua and Honduras do match almost identically, same with Sudan and Chad, at least until the recent stalling in Chad's life expectancy which perplexingly seems to correspond to the end of their civil war...
+
+There generally seems to be a high level of correspondance in the data, with Thailand and Myanmar seeming to be the only major deviation.
 
 ## Join, merge, look up (Activity #1)
 
@@ -46,7 +80,7 @@ For fun, I will also include (via a `full_join` function!) Antarctica with life 
 Antarctica <- gapminder %>% 
   filter(country == "Canada") %>% 
   select(year) %>% # Just get a sequence of the years we have data for
-  mutate(continent = factor('Antarctica'), penguins = floor(10^(8*2000/jitter(year))/jitter(year)))
+  mutate(continent = factor('Antarctica'), penguins = floor(10^(10*2000/jitter(year))/jitter(year)))
 
 # integrate Antarctica into the data
 weightLifeExp <- weightLifeExp %>% 
@@ -84,15 +118,19 @@ ggplot(meanlifegap, aes(year, lifeExp)) + facet_wrap(~ continent) +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-We can see that they generally agree, but diverge pretty badly in the Americas and Asia at the beginning of the dataset. We can also see that the use of `full_join()` created an empty Antarctica graph (because all of those values are *NA*), and gave us the error message. 
+We can see that they generally agree, but diverge pretty badly in the Americas and Asia at the beginning of the dataset. We can also see that the use of `full_join()` created an empty Antarctica graph (because all of those values are *NA*), and gave us the warning message. 
 
 ### Step 4: explore different types of joins
 
-We can quickly double check that Antarctica is the only continent unrepresented in the gapminder database using `inner_join()`:
+We can quickly double check that Antarctica is the only continent unrepresented in the `gapminder` database using `anti_join()`:
 
 ```{r}
 knitr::kable(anti_join(weightLifeExp, gapminder))
+```
 
+Similarly, we can see that there is no `gapminder` data whose year/continent is not represented in the `weightLifeExp` dataset:
+
+```{r}
 knitr::kable(anti_join(gapminder, weightLifeExp))
 ```
 
@@ -102,7 +140,11 @@ If we wanted to get rid of the empty antarctica plot we could use `left_join()`:
 
 ```{r}
 meanlifegap <- left_join(gapminder, weightLifeExp)
+```
 
+which removes Antarctica from the plot:
+
+```{r, echo = FALSE}
 ggplot(meanlifegap, aes(year, lifeExp)) + facet_wrap(~ continent) +
   geom_smooth(aes(color = 'blue'), method = loess, show.legend = T) +
   geom_point(alpha = 0.1) + 
