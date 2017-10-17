@@ -120,6 +120,8 @@ We can see that it is arranged alphabetically (ie. according to the original fac
 
 **Experiment with one or more of write_csv()/read_csv() (and/or TSV friends), saveRDS()/readRDS(),  dput()/dget(). Create something new, probably by filtering or grouped-summarization of Singer or Gapminder. I highly recommend you fiddle with the factor levels, i.e. make them non-alphabetical (see previous section). Explore whether this survives the round trip of writing to file then reading back in.**
 
+Let's do something different and find the countries with the biggest standard deviation of GDP per capita in our dataset.
+
 
 ```r
 drasticfctr <- fct_reorder(gapminder$country, gapminder$gdpPercap, sd, .desc = TRUE) %>%
@@ -135,8 +137,12 @@ drastic$country <- drastic$country %>%
   fct_reorder(drastic$gdpPercap, sd, .desc = TRUE)
 
 drastic<-as.data.frame(drastic)
+```
 
+I'm excited to work with this, but I'd rather work with it in a separate file, so I'll save it as an rds:
+
+
+```r
 saveRDS(drastic,file = "drastic.rds")
-#write_csv(drastic, "drastic.csv")
 ```
 
