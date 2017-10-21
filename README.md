@@ -5,6 +5,20 @@ output:
 ---
 # STAT545-hw01-barton-alistair
 
+## Table of Contents
+
+0. Assignment 1 (in this folder) mostly involves vague data exploration and this file.
+
+1. [Assignment 2](https://github.com/arsbar24/STAT545-hw-barton-alistair/tree/master/hw02) explores datasets and uses functions from the `dplyr` packages such as `filter()`, `select()` and `%>%` to analyze `gapminder`.
+
+2. [Assignment 3](https://github.com/arsbar24/STAT545-hw-barton-alistair/tree/master/hw03) explores `ggplot` packages and many of its parameters.
+
+3. [Assignment 4](https://github.com/arsbar24/STAT545-hw-barton-alistair/tree/master/hw04) explores use of the different `_join` functions and general data reshaping for the purposes of data-manipulation and making easier comparisons between different factors (e.g. countries)
+
+4. [Assignment 5](https://github.com/arsbar24/STAT545-hw-barton-alistair/tree/master/hw05) explores factor reorganization and plot beautification.
+
+
+
 ## Introduction to Alistair
 
 I'm a math grad student taking this course to learn useful stuff.
