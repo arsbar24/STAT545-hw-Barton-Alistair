@@ -110,11 +110,12 @@ worldgap <- left_join(world, today)
 ## into character vector
 ```
 
+Now let's plot the standard deviation of GDP in various countries:
 
 
 ```r
 ggplot(data = worldgap) + 
-  geom_polygon(aes(x = long, y = lat, fill = wealthChange, group = group)) +
+  geom_polygon(aes(x = long, y = lat, fill = wealthChange, group = group), show.legend = TRUE) +
   scale_fill_viridis() +
   guides(fill=FALSE) +
   theme_bw()
@@ -122,7 +123,9 @@ ggplot(data = worldgap) +
 
 ![](readfile_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
 
-Unfortunately there's a problem as some of the countries have different names in the gapminder and maps datasets (notably Russia, USA, Congo). To show how to remedy this, I will relabel the USA factor: 
+Unfortunately I was unable to include a scale, but bluer colours mean larger standard deviations. We can see here that this more or less matches what is generally seen as wealthy countries (with perhaps the suprising inclusion of Libya). This perhaps may be seen as the gap between wealthy countries and poorer countries growing over the dataset, as most of the blue countries were wealthier than the red countries at the beginning of the dataset.
+
+There's also a problem as some of the countries have different names in the gapminder and maps datasets (notably Russia, USA, Congo). To show how to remedy this, I will relabel the USA factor: 
 
 
 ```r
@@ -153,7 +156,7 @@ ggplot(data = worldgap) +
 
 ![](readfile_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
-Filling in the USA now.
+Note that the US is now filled.
 
 Now here I'm going to save this figure so that I can show it in the [main Assignment 5 file](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw05/Assignment_5.md) because I'm very proud of it:
 
