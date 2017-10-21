@@ -159,7 +159,7 @@ Now here I'm going to save this figure so that I can show it in the [main Assign
 
 
 ```r
-ggsave("map.pdf")
+ggsave("map.png")
 ```
 
 ```
