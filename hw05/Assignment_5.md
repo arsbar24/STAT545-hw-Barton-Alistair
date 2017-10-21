@@ -7,6 +7,13 @@ Loading packages:
 
 ```r
 suppressPackageStartupMessages(library(tidyverse))
+```
+
+```
+## Warning: package 'dplyr' was built under R version 3.4.2
+```
+
+```r
 suppressPackageStartupMessages(library(gapminder))
 suppressPackageStartupMessages(library(pander))
 library(forcats)
@@ -196,4 +203,4 @@ levels(drastic$country)
 
 **Homework continues [HERE](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw05/readfile.md), where we'll produce figures like the following:**
 
-![](gdpDrastic.pdf)
+![](map.pdf)
