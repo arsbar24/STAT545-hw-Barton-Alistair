@@ -7,7 +7,7 @@ I was very happy to create a map chart, as that has long been a (minor) goal of 
 
 ## Progress Report
 
-I found this assignment pretty challenging. The [last section](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw05/readfile.md) in particular forced me to draw resources from many previous assignments (e.g. `group_by`, `join()` and factor organization) as well as from many exterior links:
+I found this assignment pretty challenging. The [last section](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw05/GDPmap.md) in particular forced me to draw resources from many previous assignments (e.g. `group_by`, `join()` and factor organization) as well as from many exterior links:
 
 * I used a lot of information from [links](http://stat545.com/graph00_index.html) shared for the assignment, especially for inspiration for some plots (e.g. `viridis` package).
 
