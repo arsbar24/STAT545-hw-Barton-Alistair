@@ -4,4 +4,4 @@ This project was pretty fun. I think there might've been easier ways to do some 
 
 There were only a couple times I needed to resort to the internet. The first was when defining my map function. I have an argument that specifies which column to use to colour each country that I was trying to pass to the `fill` option in `geom_polygon()`, but it wasn't working. The problem was that my argument was read as a string, so `geom_polygon` was filling in countries according to a single string (so each country was coloured the same). I found a work around in stackoverflow ![here](http://stackoverflow.com/questions/17792929/pass-string-as-name-of-attached-data-column-name).
 
-The second place where I had a challenge was I couldn't remember how to remove data in 
+I also had forgotten how to put plots side-by-side so I had to use some stackoverflow help again, this time ![here](https://stackoverflow.com/questions/1249548/side-by-side-plots-with-ggplot2)
