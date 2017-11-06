@@ -92,13 +92,24 @@ Notably, there is no Russia in gapminder. We can identify the matching country i
 
 
 ```r
-head(levels(map$country))
+knitr::kable(head(levels(map$country)))
 ```
 
 ```
-## [1] "Afghanistan"    "Albania"        "Algeria"        "American Samoa"
-## [5] "Andorra"        "Angola"
+## Warning in kable_markdown(x = structure(c("Afghanistan", "Albania",
+## "Algeria", : The table should have a header (column names)
 ```
+
+
+
+|               |
+|:--------------|
+|Afghanistan    |
+|Albania        |
+|Algeria        |
+|American Samoa |
+|Andorra        |
+|Angola         |
 
 Doing this, we find the mismatch to be countries labelled ("Congo, Dem. Rep.", "Congo, Rep.", "Cote d'Ivoire", "Korea, Dem. Rep.", "Korea, Rep.", "Slovak Republic", "Trinidad and Tobago", "United Kingdom", "United States", "West Bank and Gaza", "Yemen, Rep.") in gapminder and countries labelled ("Democratic Republic of the Congo", "Republic of Congo", "Ivory Coast", "North Korea", "South Korea", "Slovakia", "Trinidad", "UK", "USA", "Palestine", "Yemen") in the map data. Hong Kong is thus the only country in gapminder that isn't in the map data.
 
