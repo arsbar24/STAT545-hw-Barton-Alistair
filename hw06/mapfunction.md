@@ -1,5 +1,9 @@
 # Writing Functions: Maps
 
+```r
+knitr::opts_chunk$set(echo = TRUE)
+options(knitr.table.format = 'markdown')
+```
 
 Loading packages:
 
@@ -69,20 +73,20 @@ knitr::kable(anti_join(gapcountries, map))
 
 
 
-country                mean(pop)
---------------------  ----------
-Congo, Dem. Rep.        32681655
-Congo, Rep.              1923209
-Cote d'Ivoire            9153110
-Hong Kong, China         4792259
-Korea, Dem. Rep.        16453881
-Korea, Rep.             36499386
-Slovak Republic          4774507
-Trinidad and Tobago      1006470
-United Kingdom          56087801
-United States          228211232
-West Bank and Gaza       1848606
-Yemen, Rep.             10843192
+|country             | mean(pop)|
+|:-------------------|---------:|
+|Congo, Dem. Rep.    |  32681655|
+|Congo, Rep.         |   1923209|
+|Cote d'Ivoire       |   9153110|
+|Hong Kong, China    |   4792259|
+|Korea, Dem. Rep.    |  16453881|
+|Korea, Rep.         |  36499386|
+|Slovak Republic     |   4774507|
+|Trinidad and Tobago |   1006470|
+|United Kingdom      |  56087801|
+|United States       | 228211232|
+|West Bank and Gaza  |   1848606|
+|Yemen, Rep.         |  10843192|
 
 Notably, there is no Russia in gapminder. We can identify the matching country in our map data by listing all its levels:
 
@@ -152,14 +156,14 @@ knitr::kable(head(countrypop))
 
 
 
-country          logpop
-------------  ---------
-Afghanistan    17.27780
-Albania        15.09659
-Algeria        17.32206
-Angola         16.33486
-Argentina      17.51191
-Australia      16.83272
+|country     |   logpop|
+|:-----------|--------:|
+|Afghanistan | 17.27780|
+|Albania     | 15.09659|
+|Algeria     | 17.32206|
+|Angola      | 16.33486|
+|Argentina   | 17.51191|
+|Australia   | 16.83272|
 
 ```r
 gapmap(countrypop, TRUE)
