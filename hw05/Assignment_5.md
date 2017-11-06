@@ -201,6 +201,6 @@ levels(drastic$country)
 ```
 
 
-**Homework continues [HERE](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw05/readfile.md), where we'll produce figures like the following:**
+**Homework continues [HERE](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw05/GDPmap.md), where we'll produce figures like the following:**
 
 ![map](map.png)
