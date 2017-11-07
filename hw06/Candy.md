@@ -1,5 +1,10 @@
 # 3. Work with the candy data
 
+```r
+knitr::opts_chunk$set(echo = TRUE)
+options(knitr.table.format = 'markdown')
+```
+
 
 ```r
 suppressPackageStartupMessages(library(tidyverse))
@@ -10,18 +15,7 @@ suppressPackageStartupMessages(library(tidyverse))
 ```
 
 ```r
-library(gridExtra)
-```
-
-```
-## 
-## Attaching package: 'gridExtra'
-```
-
-```
-## The following object is masked from 'package:dplyr':
-## 
-##     combine
+suppressPackageStartupMessages(library(gridExtra))
 ```
 
 
@@ -80,14 +74,14 @@ knitr::kable(head(joycandy))
 
 
 
-Timestamp            How.old.are.you.   Are.you.going.actually.going.trick.or.treating.yourself.   Guess.the.number.of.mints.in.my.hand.    njoy
--------------------  -----------------  ---------------------------------------------------------  --------------------------------------  -----
-10-23-2015 8:46:20   35                 No                                                         2                                          14
-10-23-2015 8:46:52   41                 No                                                         10                                         32
-10-23-2015 8:47:34   33                 No                                                         4                                          36
-10-23-2015 8:47:59   31                 No                                                         5                                          42
-10-23-2015 8:48:12   30                 No                                                         0                                          14
-10-23-2015 8:49:07   38                 No                                                         2                                          64
+|Timestamp          |How.old.are.you. |Are.you.going.actually.going.trick.or.treating.yourself. |Guess.the.number.of.mints.in.my.hand. | njoy|
+|:------------------|:----------------|:--------------------------------------------------------|:-------------------------------------|----:|
+|10-23-2015 8:46:20 |35               |No                                                       |2                                     |   14|
+|10-23-2015 8:46:52 |41               |No                                                       |10                                    |   32|
+|10-23-2015 8:47:34 |33               |No                                                       |4                                     |   36|
+|10-23-2015 8:47:59 |31               |No                                                       |5                                     |   42|
+|10-23-2015 8:48:12 |30               |No                                                       |0                                     |   14|
+|10-23-2015 8:49:07 |38               |No                                                       |2                                     |   64|
 
 Before we plot, we need to ensure that all our variables are quantitative by removing non-numeric arguments and replacing them with NA:
 

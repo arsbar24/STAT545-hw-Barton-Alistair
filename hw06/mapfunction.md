@@ -17,26 +17,11 @@ suppressPackageStartupMessages(library(tidyverse))
 ```
 
 ```r
-suppressPackageStartupMessages(library(gapminder))
-suppressPackageStartupMessages(library(pander))
+library(gapminder)
+library(pander)
 library(forcats)
-library(maps)
-```
-
-```
-## 
-## Attaching package: 'maps'
-```
-
-```
-## The following object is masked from 'package:purrr':
-## 
-##     map
-```
-
-```r
+suppressPackageStartupMessages(library(maps))
 library(mapdata)
-suppressPackageStartupMessages(library(viridis))
 ```
 
 ## 2. Writing functions
