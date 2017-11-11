@@ -147,7 +147,9 @@ knitr::kable(head(df))
 |2016-08-07 21:31:46 |        0|         0| 0.5|
 |2016-08-07 13:49:29 |        0|         0| 0.5|
 
-Now we want to plot these on the same graph, so its natural to reshape our data so that `nummatch` is a type of count
+This is a bad set of data, so it doesn't look interesting, but believe me it worked!
+
+We create the all type to keep track of all of his tweets. Note that we scale it by half to stop it from obscuring our data when we plot. Now we want to plot these on the same graph, so its natural to reshape our data so that `nummatch` is a type of count
 
 
 ```r
@@ -179,7 +181,7 @@ Now we can plot it:
 ```r
 ggplot(df2, aes(x=time, fill = wordtype)) + 
   geom_density(aes(weights = count), alpha = 0.2) +
-  scale_fill_discrete(name = "Type", labels=c("All Tweets", "Candidates","Trumpisms"))
+  scale_fill_discrete(name = "Type", labels=c("0.5*All Tweets", "Candidates","Trumpisms"))
 ```
 
 ```
