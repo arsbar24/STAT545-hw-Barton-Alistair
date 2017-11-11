@@ -1,4 +1,4 @@
-# Writing Functions: Maps
+# 2. Writing Functions: Maps
 
 ```r
 knitr::opts_chunk$set(echo = TRUE)
@@ -10,6 +10,10 @@ Loading packages:
 
 ```r
 suppressPackageStartupMessages(library(tidyverse))
+```
+
+```
+## Warning: package 'purrr' was built under R version 3.4.2
 ```
 
 ```
@@ -139,7 +143,7 @@ gapmap <- function(data, plot = TRUE, fillvar = colnames(data)[ncol(data)]) {
 
 where we use a for loop to simplify our relabelling process (I tried vectorizing it but R took it to mean something different).
 
-We now show an example of how to use it to colour countries by population:
+We now show an example of how to use it to colour countries by their most recent population:
 
 
 ```r

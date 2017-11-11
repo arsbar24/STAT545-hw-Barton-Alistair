@@ -1,6 +1,10 @@
-# Trump Tweets
+# 5. Trump Tweets
 
 
+```r
+knitr::opts_chunk$set(echo = TRUE)
+options(knitr.table.format = 'markdown')
+```
 
 Load `purrr` and Trumps tweets:
 
@@ -134,14 +138,14 @@ knitr::kable(head(df))
 
 
 
-time                   nummatch   nummatch2   all
---------------------  ---------  ----------  ----
-2016-08-08 15:20:44           0           0   0.5
-2016-08-08 13:28:20           0           0   0.5
-2016-08-08 00:05:54           0           0   0.5
-2016-08-07 23:09:08           0           0   0.5
-2016-08-07 21:31:46           0           0   0.5
-2016-08-07 13:49:29           0           0   0.5
+|time                | nummatch| nummatch2| all|
+|:-------------------|--------:|---------:|---:|
+|2016-08-08 15:20:44 |        0|         0| 0.5|
+|2016-08-08 13:28:20 |        0|         0| 0.5|
+|2016-08-08 00:05:54 |        0|         0| 0.5|
+|2016-08-07 23:09:08 |        0|         0| 0.5|
+|2016-08-07 21:31:46 |        0|         0| 0.5|
+|2016-08-07 13:49:29 |        0|         0| 0.5|
 
 Now we want to plot these on the same graph, so its natural to reshape our data so that `nummatch` is a type of count
 
@@ -160,14 +164,14 @@ knitr::kable(head(df2))
 
 
 
-time                  wordtype    count
---------------------  ---------  ------
-2016-08-08 15:20:44   nummatch        0
-2016-08-08 13:28:20   nummatch        0
-2016-08-08 00:05:54   nummatch        0
-2016-08-07 23:09:08   nummatch        0
-2016-08-07 21:31:46   nummatch        0
-2016-08-07 13:49:29   nummatch        0
+|time                |wordtype | count|
+|:-------------------|:--------|-----:|
+|2016-08-08 15:20:44 |nummatch |     0|
+|2016-08-08 13:28:20 |nummatch |     0|
+|2016-08-08 00:05:54 |nummatch |     0|
+|2016-08-07 23:09:08 |nummatch |     0|
+|2016-08-07 21:31:46 |nummatch |     0|
+|2016-08-07 13:49:29 |nummatch |     0|
 
 Now we can plot it:
 
