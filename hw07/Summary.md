@@ -6,29 +6,6 @@ knitr::opts_chunk$set(echo = TRUE)
 options(knitr.table.format = 'markdown')
 ```
 
-
-```r
-library(stringr)
-library(purrr)
-```
-
-```
-## Warning: package 'purrr' was built under R version 3.4.2
-```
-
-```r
-suppressMessages(library(dplyr))
-```
-
-```
-## Warning: package 'dplyr' was built under R version 3.4.2
-```
-
-```r
-library(tibble)
-suppressPackageStartupMessages(library(tidyverse))
-```
-
 In this assignment, I search a collection of Donald Trumps tweets for the following sets of words:
 
 

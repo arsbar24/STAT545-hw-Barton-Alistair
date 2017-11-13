@@ -11,14 +11,6 @@ knitr::opts_chunk$set(echo = TRUE)
 options(knitr.table.format = 'markdown')
 ```
 
-```{r}
-library(stringr)
-library(purrr)
-suppressMessages(library(dplyr))
-library(tibble)
-suppressPackageStartupMessages(library(tidyverse))
-```
-
 In this assignment, I search a collection of Donald Trumps tweets for the following sets of words:
 
 ```{r}
