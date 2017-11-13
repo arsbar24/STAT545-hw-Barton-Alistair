@@ -17,6 +17,10 @@ output:
 
 4. [Assignment 5](https://github.com/arsbar24/STAT545-hw-barton-alistair/tree/master/hw05) explores factor reorganization and plot beautification.
 
+5. [Assignment 6](https://github.com/arsbar24/STAT545-hw-barton-alistair/tree/master/hw06) explores creation of functions, revisiting data wrangling with a messy candy dataset, and regular expression analysis (with respect to Trump's tweets).
+
+6. [Assignment 7](https://github.com/arsbar24/STAT545-hw-barton-alistair/tree/master/hw07) explores automation of the above analysis of Trump's tweets by use of a `Makefile`.
+
 
 
 ## Introduction to Alistair
