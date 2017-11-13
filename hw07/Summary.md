@@ -10,7 +10,6 @@ In this assignment, I search a collection of Donald Trumps tweets for the follow
 
 
 ```r
-setwd("~/STAT545/STAT545-hw-barton-alistair/hw07")
 Words <- read.delim("SummaryFiles/Words.tsv")
 knitr::kable(Words)
 ```
@@ -34,13 +33,11 @@ We automate this all in [`Makefile`](https://github.com/arsbar24/STAT545-hw-bart
 
 The final product of this is the following plot:
 
-![](../SummaryFiles/tweet_freq.png)
+![](SummaryFiles/tweet_freq.png)
 
 We can also see the total amount of counts of each variable from the `Occ.csv` file I created:
 
 ```r
-setwd("~/STAT545/STAT545-hw-barton-alistair/hw07")
-
 knitr::kable(read.delim("SummaryFiles/Occ.tsv"))
 ```
 
