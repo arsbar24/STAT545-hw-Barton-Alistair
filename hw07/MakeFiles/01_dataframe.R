@@ -7,9 +7,15 @@ tweets <- trump_tweets_df$text
 time <- trump_tweets_df$created
 
 # words we're looking for
+wordtypes <- c()
 Trumpisms <- c()
-Trumpisms[1] <- "huge|wall|crooked|best|believe|win|lose|great again|MAGA|sad"
+wordtypes[1] <- "Trumpisms"
+Trumpisms[1] <- "huge|wall|crooked|best|believe|win|lose|great again|MAGA|sad|best"
+wordtypes[2] <- "Other candidates"
 Trumpisms[2] <- "Hillary|Bernie|Ted Cruz|Ben Carson|Bush"
+wordtypes[3] <- "Places"
+Trumpisms[3] <- "China|Mexico|Canada|America|Europe"
+
 
 
 match <- function(words, tweets = tweets){
@@ -21,7 +27,7 @@ match <- function(words, tweets = tweets){
 # count number of matches in each tweet
 nummatch <- lapply(Trumpisms, function(x) match(x,tweets))
 nummatch <- data.frame(nummatch)
-colnames(nummatch) <- 1:length(nummatch)
+colnames(nummatch) <- wordtypes
 
 df <- data.frame(time,nummatch)
 
@@ -43,7 +49,7 @@ write.table(df2, "tweetdata.tsv", quote = FALSE, sep = "\t", qmethod = "double",
 
 # save sets of words we're looking for (for Rmd file)
 
-Trumpisms <- data.frame("wordtype" = 1:length(Trumpisms), "Words" = Trumpisms)
+Trumpisms <- data.frame("wordtype" = wordtypes, "Words" = Trumpisms)
 
 write.table(Trumpisms, "Words.tsv", sep = "\t", row.names = FALSE)
 

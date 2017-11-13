@@ -20,6 +20,8 @@ knitr::kable(Words)
 
 and then plot his usage of them over time.
 
+Note that this entire assignment is easily scalable. All one needs to do is add another regular expression to the vector `Trumpisms` and add a name for it to the vector `wordtypes` in [01_dataframe.R](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw07/MakeFiles/01_dataframe.R) and the analysis will automatically include it next time you run it.
+
 We begin by downloading the data in [`00_download.R`](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw07/MakeFiles/00_download.R) (the [info](https://jennybc.github.io/purrr-tutorial/ls08_trump-tweets.html) for doing this was obtained from the previous assignment). 
 
 We then count the occurences of the words in each tweet in [`01_dataframe.R`](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw07/MakeFiles/01_dataframe.R) and arrange this data in a dataframe, using `gather()` so that it's ripe for plotting--we also save our the words in the `Words.tsv` file so we can input it at the top of this page if we change them. We also count the total number of occurences and save in `Occ.tsv` (both these data files are located in the [SummaryFiles](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw07/SummaryFiles/) folder).
@@ -31,6 +33,8 @@ We automate this all in [`Makefile`](https://github.com/arsbar24/STAT545-hw-bart
 The final product of this is the following plot:
 
 ![](SummaryFiles/tweet_freq.png)
+
+We can see he referred to his opponents about as frequently as he used his catchphrases at the beginning of his campaign, but that he referred to his fellow candidates more and more as the campaign drew on. I suspect the uptrend at the end of the data continues, but the smoothing function I use doesn't see any data after the end of the dataset so trends down.
 
 We can also see the total amount of counts of each variable from the `Occ.csv` file I created:
 ```{r}

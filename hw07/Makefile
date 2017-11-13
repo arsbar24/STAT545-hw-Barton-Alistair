@@ -1,9 +1,9 @@
 all: summary
 
-tweets.rda:
+download:
 	Rscript MakeFiles/00_download.R
 	
-analyze: tweets.rda MakeFiles/01_dataframe.R
+analyze: download MakeFiles/01_dataframe.R
 	Rscript MakeFiles/01_dataframe.R
 	
 plot: analyze MakeFiles/02_plot.R

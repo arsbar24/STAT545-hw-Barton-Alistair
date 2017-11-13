@@ -16,12 +16,15 @@ knitr::kable(Words)
 
 
 
-| wordtype|Words                                                                                                     |
-|--------:|:---------------------------------------------------------------------------------------------------------|
-|        1|huge&#124;wall&#124;crooked&#124;best&#124;believe&#124;win&#124;lose&#124;great again&#124;MAGA&#124;sad |
-|        2|Hillary&#124;Bernie&#124;Ted Cruz&#124;Ben Carson&#124;Bush                                               |
+|wordtype         |Words                                                                                                               |
+|:----------------|:-------------------------------------------------------------------------------------------------------------------|
+|Trumpisms        |huge&#124;wall&#124;crooked&#124;best&#124;believe&#124;win&#124;lose&#124;great again&#124;MAGA&#124;sad&#124;best |
+|Other candidates |Hillary&#124;Bernie&#124;Ted Cruz&#124;Ben Carson&#124;Bush                                                         |
+|Places           |China&#124;Mexico&#124;Canada&#124;America&#124;Europe                                                              |
 
 and then plot his usage of them over time.
+
+Note that this entire assignment is easily scalable. All one needs to do is add another regular expression to the vector `Trumpisms` and add a name for it to the vector `wordtypes` in [01_dataframe.R](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw07/MakeFiles/01_dataframe.R) and the analysis will automatically include it next time you run it.
 
 We begin by downloading the data in [`00_download.R`](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw07/MakeFiles/00_download.R) (the [info](https://jennybc.github.io/purrr-tutorial/ls08_trump-tweets.html) for doing this was obtained from the previous assignment). 
 
@@ -35,6 +38,8 @@ The final product of this is the following plot:
 
 ![](SummaryFiles/tweet_freq.png)
 
+We can see he referred to his opponents about as frequently as he used his catchphrases at the beginning of his campaign, but that he referred to his fellow candidates more and more as the campaign drew on. I suspect the uptrend at the end of the data continues, but the smoothing function I use doesn't see any data after the end of the dataset so trends down.
+
 We can also see the total amount of counts of each variable from the `Occ.csv` file I created:
 
 ```r
@@ -43,10 +48,11 @@ knitr::kable(read.delim("SummaryFiles/Occ.tsv"))
 
 
 
-|wordtype | occurences|
-|:--------|----------:|
-|X1       |        176|
-|X2       |        369|
+|wordtype         | occurences|
+|:----------------|----------:|
+|Other.candidates |        369|
+|Places           |        239|
+|Trumpisms        |        176|
 
 
 
