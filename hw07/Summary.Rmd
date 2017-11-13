@@ -28,7 +28,7 @@ The final product of this is the following plot:
 
 We can also see the total amount of counts of each variable from the `Occ.csv` file I created:
 ```{r}
-knitr::kable(read.delim("Occ.csv"))
+knitr::kable(read.delim("Occ.tsv"))
 ```
 
 

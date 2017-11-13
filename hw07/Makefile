@@ -19,4 +19,4 @@ clean:
 	rm -f tweetdata.rda
 	rm -f tweet_freq.png
 	rm -f Words.tsv
-	rm -f Occ.csv
+	rm -f Occ.tsv

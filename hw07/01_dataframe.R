@@ -8,7 +8,7 @@ time <- trump_tweets_df$created
 
 # words we're looking for
 Trumpisms <- c()
-Trumpisms[1] <- "huge|wall|crooked|best|believe|win|lose|make america|sad"
+Trumpisms[1] <- "huge|wall|crooked|best|believe|win|lose|great again|MAGA|sad"
 Trumpisms[2] <- "Hillary|Bernie|Ted Cruz|Ben Carson|Bush"
 
 
@@ -18,10 +18,9 @@ match <- function(words, tweets = tweets){
   as.numeric(nummatches)
 }
 
+# count number of matches in each tweet
 nummatch <- lapply(Trumpisms, function(x) match(x,tweets))
-
 nummatch <- data.frame(nummatch)
-
 colnames(nummatch) <- 1:length(nummatch)
 
 df <- data.frame(time,nummatch)
@@ -36,7 +35,7 @@ total_occ<- df2 %>%
   summarize('occurences' = sum(count)) %>% 
   data.frame()
 
-write.table(total_occ, "Occ.csv", sep = "\t", row.names = FALSE)
+write.table(total_occ, "Occ.tsv", sep = "\t", row.names = FALSE)
 
 # save data
 

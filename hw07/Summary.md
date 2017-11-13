@@ -16,10 +16,10 @@ knitr::kable(Words)
 
 
 
-| wordtype|Words                                                                                            |
-|--------:|:------------------------------------------------------------------------------------------------|
-|        1|huge&#124;wall&#124;crooked&#124;best&#124;believe&#124;win&#124;lose&#124;make america&#124;sad |
-|        2|Hillary&#124;Bernie&#124;Ted Cruz&#124;Ben Carson&#124;Bush                                      |
+| wordtype|Words                                                                                                     |
+|--------:|:---------------------------------------------------------------------------------------------------------|
+|        1|huge&#124;wall&#124;crooked&#124;best&#124;believe&#124;win&#124;lose&#124;great again&#124;MAGA&#124;sad |
+|        2|Hillary&#124;Bernie&#124;Ted Cruz&#124;Ben Carson&#124;Bush                                               |
 
 and then plot his usage of them over time.
 
@@ -32,14 +32,14 @@ The final product of this is the following plot:
 We can also see the total amount of counts of each variable from the `Occ.csv` file I created:
 
 ```r
-knitr::kable(read.delim("Occ.csv"))
+knitr::kable(read.delim("Occ.tsv"))
 ```
 
 
 
 |wordtype | occurences|
 |:--------|----------:|
-|X1       |        154|
+|X1       |        176|
 |X2       |        369|
 
 
