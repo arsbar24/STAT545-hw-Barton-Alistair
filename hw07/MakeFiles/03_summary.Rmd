@@ -1,26 +1,23 @@
-# Summary
+---
+title: "Summary"
+output: 
+  html_document: 
+    smart: false
+    keep_md: yes
+---
 
-
-```r
+```{r setup, include=TRUE}
 knitr::opts_chunk$set(echo = TRUE)
 options(knitr.table.format = 'markdown')
 ```
 
 In this assignment, I search a collection of Donald Trumps tweets for the following sets of words:
 
-
-```r
+```{r}
 setwd("~/STAT545/STAT545-hw-barton-alistair/hw07")
 Words <- read.delim("SummaryFiles/Words.tsv")
 knitr::kable(Words)
 ```
-
-
-
-| wordtype|Words                                                                                                     |
-|--------:|:---------------------------------------------------------------------------------------------------------|
-|        1|huge&#124;wall&#124;crooked&#124;best&#124;believe&#124;win&#124;lose&#124;great again&#124;MAGA&#124;sad |
-|        2|Hillary&#124;Bernie&#124;Ted Cruz&#124;Ben Carson&#124;Bush                                               |
 
 and then plot his usage of them over time.
 
@@ -37,19 +34,11 @@ The final product of this is the following plot:
 ![](../SummaryFiles/tweet_freq.png)
 
 We can also see the total amount of counts of each variable from the `Occ.csv` file I created:
-
-```r
+```{r}
 setwd("~/STAT545/STAT545-hw-barton-alistair/hw07")
 
 knitr::kable(read.delim("SummaryFiles/Occ.tsv"))
 ```
-
-
-
-|wordtype | occurences|
-|:--------|----------:|
-|X1       |        176|
-|X2       |        369|
 
 
 
