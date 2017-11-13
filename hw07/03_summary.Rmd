@@ -36,7 +36,7 @@ The final product of this is the following plot:
 
 We can see he referred to his opponents about as frequently as he used his catchphrases at the beginning of his campaign, but that he referred to his fellow candidates more and more as the campaign drew on. I suspect the uptrend at the end of the data continues, but the smoothing function I use doesn't see any data after the end of the dataset so trends down.
 
-We can also see the total amount of counts of each variable from the `Occ.csv` file I created:
+We can also see the total amount of counts of each variable from the `Occ.tsv` file I created:
 ```{r}
 knitr::kable(read.delim("SummaryFiles/Occ.tsv"))
 ```
