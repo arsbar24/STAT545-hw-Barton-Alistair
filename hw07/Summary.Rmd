@@ -22,8 +22,8 @@ suppressPackageStartupMessages(library(tidyverse))
 In this assignment, I search a collection of Donald Trumps tweets for the following sets of words:
 
 ```{r}
-Words <- read.delim("Words.csv")
-as.character(Words$Words)
+Words <- read.delim("Words.tsv")
+knitr::kable(Words)
 ```
 
 and then plot his usage of them over time.
@@ -34,6 +34,10 @@ The final product of this is the following plot:
 
 ![](tweet_freq.png)
 
+We can also see the total amount of counts of each variable from the `Occ.csv` file I created:
+```{r}
+knitr::kable(read.delim("Occ.csv"))
+```
 
 
 
