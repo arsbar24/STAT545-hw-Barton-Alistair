@@ -16,15 +16,16 @@ knitr::kable(Words)
 
 
 
-|wordtype         |Words                                                                                                               |
-|:----------------|:-------------------------------------------------------------------------------------------------------------------|
-|Trumpisms        |huge&#124;wall&#124;crooked&#124;best&#124;believe&#124;win&#124;lose&#124;great again&#124;MAGA&#124;sad&#124;best |
-|Other candidates |Hillary&#124;Bernie&#124;Ted Cruz&#124;Ben Carson&#124;Bush                                                         |
-|Places           |China&#124;Mexico&#124;Canada&#124;America&#124;Europe                                                              |
+|wordtype            |Words                                                                                                               |
+|:-------------------|:-------------------------------------------------------------------------------------------------------------------|
+|Trumpisms           |huge&#124;wall&#124;crooked&#124;best&#124;believe&#124;win&#124;lose&#124;great again&#124;MAGA&#124;sad&#124;best |
+|Hillary Clinton     |Hillary                                                                                                             |
+|Primary Candidates  |Marco&#124;Cruz&#124;Carson&#124;Jeb                                                                                |
+|Sanders & Democrats |Bernie&#124;Dem                                                                                                     |
 
 and then plot his usage of them over time.
 
-Note that this entire assignment is easily scalable. All one needs to do is add another regular expression to the vector `Trumpisms` and add a name for it to the vector `wordtypes` in [01_dataframe.R](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw07/MakeFiles/01_dataframe.R) and the analysis will automatically include it next time you run it. To somewhat demonstrate this, I do my analysis on three sets of words when originally it was just two (as I did on my last assignment)
+Note that this entire assignment is easily scalable. All one needs to do is add another regular expression to the vector `Trumpisms` and add a name for it to the vector `wordtypes` in [01_dataframe.R](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw07/MakeFiles/01_dataframe.R) and the analysis will automatically include it next time you run it. To somewhat demonstrate this, I do my analysis on four sets of words when originally it was just two (as I did on my last assignment)
 
 We begin by downloading the data in [`00_download.R`](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw07/MakeFiles/00_download.R) (the [info](https://jennybc.github.io/purrr-tutorial/ls08_trump-tweets.html) for doing this was obtained from the previous assignment). 
 
@@ -67,7 +68,7 @@ The final product of this is the following plot:
 
 ![](SummaryFiles/tweet_freq.png)
 
-We can see Trump referred to his opponents about as frequently as he used his catchphrases at the beginning of his campaign, but that he referred to his fellow candidates more and more as the campaign drew on. I suspect the uptrend at the end of the data continues, but the smoothing function I use doesn't see any data after the end of the dataset so trends down. I was a bit surprised at his relative lack of his catchphrases, given how much they stick out.
+We can see how Trump's references to his competitors in the primaries peaks around Super Tuesday (March 4th) around the time Ben Carson withdrew. His change in focus from primaries to the election is also evident, and we can see how his references to Sanders and Clinton match. I suspect many of the uptrends at the end of the data continues, but the smoothing function I use doesn't see any data after the end of the dataset so trends down. I was a bit surprised at his relative lack of his catchphrases, given how much they stick out.
 
 Lastly, we can also see the total amount of counts of each variable from the `Occ.tsv` file I created:
 
@@ -78,11 +79,12 @@ knitr::kable(read.delim("SummaryFiles/Occ.tsv"))
 
 
 
-|wordtype         | occurences|
-|:----------------|----------:|
-|Other.candidates |        369|
-|Places           |        239|
-|Trumpisms        |        176|
+|wordtype            | occurences|
+|:-------------------|----------:|
+|Hillary.Clinton     |        248|
+|Primary.Candidates  |        146|
+|Sanders...Democrats |         97|
+|Trumpisms           |        176|
 
 
 

@@ -11,11 +11,14 @@ wordtypes <- c()
 Trumpisms <- c()
 wordtypes[1] <- "Trumpisms"
 Trumpisms[1] <- "huge|wall|crooked|best|believe|win|lose|great again|MAGA|sad|best"
-wordtypes[2] <- "Other candidates"
-Trumpisms[2] <- "Hillary|Bernie|Ted Cruz|Ben Carson|Bush"
-wordtypes[3] <- "Places"
-Trumpisms[3] <- "China|Mexico|Canada|America|Europe"
-
+wordtypes[2] <- "Hillary Clinton"
+Trumpisms[2] <- "Hillary"
+#wordtypes[3] <- "Places"
+#Trumpisms[3] <- "China|Mexico|Canada|America|Europe"
+wordtypes[3] <- "Primary Candidates"
+Trumpisms[3] <- "Marco|Cruz|Carson|Jeb"
+wordtypes[4] <- "Sanders & Democrats"
+Trumpisms[4] <- "Bernie|Dem"
 
 
 match <- function(words, tweets = tweets){
