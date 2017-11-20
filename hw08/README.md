@@ -16,7 +16,7 @@ I also plot the number of total tweets (scaled down by 10 so as not to ruin the 
 
 ## Table of contents
 
-All the files necessary to create the site are in the [SiteFiles](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw08/TrumpTweets) folder. However I also included my data download files in this folder. Trumpto2017 is the database of Trump's tweets until this year, while [DataManagement.R](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw08/DataManagement.R) downloads an hourly update of Trump's tweets for this year, combines it with data from his earlier tweets and saves it as the `tweets.rda` file in the TrumpTweets folder (while doing some major data cleaning along the way).
+All the files necessary to create the site are in the [SiteFiles](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw08/TrumpTweets) folder. However I also included my data download files in this folder. Trumpto2017 is the database of Trump's tweets until this year, while [DataManagement.R](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw08/DataManagement.R) cleans data (which may be re-downloaded) and saves it as the `tweets.rda` file in the TrumpTweets folder (originally it also downloaded new data, but this proved quite complicated merge so I cut this part out).
 
 ## Progress Report
 
