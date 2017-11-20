@@ -1,0 +1,10 @@
+name: TrumpTweets
+title:
+username:
+account: arsbar
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 237576
+bundleId: 1084808
+url: https://arsbar.shinyapps.io/TrumpTweets/
+when: 1511137243.2621

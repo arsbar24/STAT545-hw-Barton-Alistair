@@ -5,7 +5,7 @@ library(purrr)
 library(tidyverse)
 library(scales)
 
-readRDS(file = "tweets.rda")
+load(file = "tweets.rda")
 
 # drop unnecessary columns
 Trump_tweets <- trump_tweets_df %>% 
@@ -24,6 +24,9 @@ server <- function(input, output) {
     # split entries into vectors
     words <- unlist(strsplit(input$words,", "))
     wordtypes <- unlist(strsplit(input$wordtypes,", "))
+    if(length(words) != length(wordtypes)){
+      stop("Must have label for each word category")
+    }
     
     # apply time constraint
     filtered <- Trump_tweets %>%
