@@ -2,7 +2,7 @@
 
 ## Summary of Project
 
-In the last two assignments I both worked with analyzing Trump's tweets. I decided to continue this because I find it fun and it's something I can share with friends and family. My goal for this project is to create something that they'd enjoy playing around with. Here is the [link to project](https://arsbar.shinyapps.io/sitefiles/) so you can decide how successful I was.
+In the last two assignments I both worked with analyzing Trump's tweets. I decided to continue this because I find it fun and it's something I can share with friends and family. My goal for this project is to create something that they'd enjoy playing around with. Here is the [link to project](https://arsbar.shinyapps.io/TrumpTweets/) so you can decide how successful I was.
 
 The site allows one to search for Trump's usage of certain words/phrases over time. I allow the user to choose and label the words, select a time frame, and decide whether or not to include a density plot of Trump's tweet frequency as well (to give a general idea of how much trends may be due to Trump simply tweeting more). In addition to this I also show the user Trump's top tweets in the time frame, arranged by either retweets or favourites.
 
