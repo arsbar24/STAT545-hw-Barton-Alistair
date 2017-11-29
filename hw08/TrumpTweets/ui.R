@@ -6,14 +6,14 @@ ui <- fluidPage(
   "I include some information on inspiration at the bottom of the page that I encourage you to look at if you're interested.",
   br(),
   "This is part of an assignment for STAT 545 at UBC, as such the source code is located at ",
-  a("my GitHub.", target = "_blank", href = "https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw08/TrumpTweets"),
+  a("my GitHub.", target = "_blank", href = "https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw08/"),
   sidebarLayout(
     sidebarPanel(
       checkboxInput("all_tweets", "Include plot of all tweets (at 1/10th scale)?", FALSE),
       dateRangeInput("time_range", "Choose a time range for tweets:", start = as.Date("2015-06-16"), end = as.Date(Sys.Date())),
       "(The default time range is from start of his candidacy to today. Other interesting dates are his inauguration (Jan 20 2017), and Super Tuesday (March 1 2016).)",
-      textInput("words","Enter words/phrases (case sensitive)", "MAGA|Great Again, Fake News|fake news|Fake news"),
-      textInput("wordtypes","Enter Labels for above phrases", "MAGA, Fake News"),
+      textInput("words","Enter words/phrases (case sensitive)", "covfefe, MAGA|Great Again, Fake News|fake news|Fake news"),
+      textInput("wordtypes","Enter Labels for above phrases", "covfefe, MAGA, Fake News"),
       selectInput("ranked", "Sort tweets by", choices = c("Retweets", "Favourites"))
     ),
     mainPanel(
