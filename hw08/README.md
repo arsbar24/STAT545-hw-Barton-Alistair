@@ -1,14 +1,10 @@
----
-output:
-  html_document:
-    smart: false
----
-
 # Homework 8
 
 ## Summary of Project
 
-In the last two assignments I both worked with analyzing Trump's tweets. I decided to continue this because I find it fun and it's something I can share with friends and family. My goal for this project is to create something that they'd enjoy playing around with. Here is the [link to project](https://arsbar.shinyapps.io/sitefiles/) so you can decide how successful I was.
+In the last two assignments I both worked with analyzing Trump's tweets. I decided to continue this because I find it fun and it's something I can share with friends and family. My goal for this project is to create something that they'd enjoy playing around with. Here is the [link to project](https://arsbar.shinyapps.io/TrumpTweets/) so you can decide how successful I was.
+
+The site allows one to search for Trump's usage of certain words/phrases over time. I allow the user to choose and label the words, select a time frame, and decide whether or not to include a density plot of Trump's tweet frequency as well (to give a general idea of how much trends may be due to Trump simply tweeting more). In addition to this I also show the user Trump's top tweets in the time frame, arranged by either retweets or favourites.
 
 The major change here from the last assignment is the inclusion of a larger data set that I found from [this site](http://www.trumptwitterarchive.com/) (that saved me from having to navigate twitter API)---this is different from the linked dataset provided two assignments ago which only covered around 6 months. This dataset presented its own set of difficulties detailed below. I also make use of the scalability I introduced in the last assignment: one can add more and more sets of phrases without significantly slowing down the site.
 
@@ -16,7 +12,7 @@ I also plot the number of total tweets (scaled down by 10 so as not to ruin the 
 
 ## Table of contents
 
-All the files necessary to create the site are in the [SiteFiles](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw08/TrumpTweets) folder. However I also included my data download files in this folder. Trumpto2017 is the database of Trump's tweets until this year, while [DataManagement.R](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw08/DataManagement.R) cleans data (which may be re-downloaded) and saves it as the `tweets.rda` file in the TrumpTweets folder (originally it also downloaded new data, but this proved quite complicated merge so I cut this part out).
+All the files necessary to create the site are in the [SiteFiles](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw08/TrumpTweets) folder. However I also included my data download files in this folder. Trumpto2017 is the database of Trump's tweets until this weekend, while [DataManagement.R](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw08/DataManagement.R) cleans data (which may be re-downloaded) and saves it as the `tweets.rda` file in the TrumpTweets folder (originally it also downloaded new data, but this proved quite complicated to merge so I cut this part out).
 
 ## Progress Report
 
