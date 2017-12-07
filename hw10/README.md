@@ -29,3 +29,6 @@ Once I had the function, I used a loop to cycle through the data corresponding t
 
 This file showcases a couple of ways to use the data.
 
+## Makefile
+
+I used a makefile in order to update my project to make it consistent before any uploads, but my project ended up having a much simpler structure than I anticipated, so I don't think it was necessary strictly speaking.
