@@ -8,7 +8,7 @@ library(rvest)
 library(xml2)
 
 
-DataSize = 500 # parameter for how much data we want, should be <7394
+DataSize = 7393 # parameter for how much data we want, should be <7394
 
 # function to convert grades to GPA (for ordering purposes)
 grade2GPA <- function(letter){

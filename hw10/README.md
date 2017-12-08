@@ -1,11 +1,11 @@
 # Homework README
 
 ## Summary
-For this assignment, I decided that I would like to scrape data from [RateMyProfessor](http://www.ratemyprofessors.com/), mainly to see if there are any interesting patterns there (for the unfamiliar RMP is a site where students can review professors they've taken courses from, these reviews include ratings and various other pieces of information, see screenshot below). 
+For this assignment, I decided that I would like to scrape data from [RateMyProfessor](http://www.ratemyprofessors.com/), mainly to see if there are any interesting patterns there. For the unfamiliar, it's a website where students can review professors they've taken courses from, these reviews include ratings and various other pieces of information, see screenshot below:
 
 ![](figures/SampleReview.png)
 
-The function I used is in the [dataframing.R](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw10/dataframing.R) file, and collects various pieces of information pertaining to the review (in particular: the University, Department, Professor, Course, Difficulty, the overall rating, their comments, Date of review, how many people found it helpful/unhelpful, and the grade obtained by the reviewer).
+The function I used is in the [dataframing.R](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw10/dataframing.R) file, and collects the circled pieces of information above for each review (in particular: the University, Department, Professor, Course, Difficulty, the overall rating, their comments, Date of review, how many people found it helpful/unhelpful, and the grade obtained by the reviewer).
 
 ## [Scraping function](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw10/dataframing.R)
 
@@ -32,3 +32,19 @@ This file showcases a couple of ways to use the data.
 ## Makefile
 
 I used a makefile in order to update my project to make it consistent before any uploads, but my project ended up having a much simpler structure than I anticipated, so I don't think it was necessary strictly speaking.
+
+
+## Questions
+
+There are a couple places where I solved a problem in a way that might be suboptimal:
+
+* **Ordering grades:** The default way to do this is alphabetically, which puts A ahead of A+. I fixed this by converting to GPA via a case-by-case function, but there might be an easier way. 
+
+* **Wrapping around the density kernel:** To figure out how frequent ratings are at different times of the year I converted my dates to a month-day format and gave a density plot. The problem with this is that the density plot doesn't account for reviews from January 1st in the density for December 31st, but I don't know how to make this work.
+
+* **Loading all reviews:** (As mentioned above) RateMyProfessors only displays 20 reviews at a time. To load more you have click a button at the bottom of the page. I couldn't find out how to scrape these extra results. I would've like to have had them.
+
+
+## Reflections
+
+I found this project very interesting, even if the scraping function is a bit mechanical. I think I might see this as the most useful thing I learnt in this course as it gives me the tools to investigate a wide range of things under the proper motivation. I also enjoyed this assignment because I felt it allowed me to combine a lot of what I learnt in the first half of the course, refreshing my memory.
