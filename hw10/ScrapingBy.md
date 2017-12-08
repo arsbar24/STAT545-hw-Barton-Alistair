@@ -60,14 +60,8 @@ We might want to see what reasons someone would give for a good but difficult ra
 hard <- filter(data, Difficulty == 5)
 good <- filter(data, Rating == 5)
 
-hardgood <- inner_join(hard, good)
-```
+hardgood <- inner_join(hard, good, by = c("X1", "University", "Department", "Professor", "Course", "Difficulty", "Rating", "Comments", "Date", "Unhelpful", "Helpful", "Grade"))
 
-```
-## Joining, by = c("X1", "University", "Department", "Professor", "Course", "Difficulty", "Rating", "Comments", "Date", "Unhelpful", "Helpful", "Grade")
-```
-
-```r
 head(hardgood$Comments)
 ```
 
@@ -83,7 +77,7 @@ head(hardgood$Comments)
 
 ## When do students rate the most?
 
-We also might want to see how ratings correlate with the date, perhaps harder ratings occur in December and April when most universities have exams?
+We also might want to see when the most ratings occur, during final exams, or maybe a bit afterwards:
 
 
 ```r
