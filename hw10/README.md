@@ -25,7 +25,7 @@ Most of these were pretty simple to get, but there were a few exceptions:
 
 Once I had the function, I used a loop to cycle through the data corresponding to a few hundred professors. I managed this by noticing that each page is linked by a `tid` number, which covers a range between 7543 and 14937. I used `rbind()` to concatenate the data into one dataframe, then saved it to the [`rmp_data.csv`](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw10/rmp_data.csv) file. This is also included in the [dataframing.R](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw10/dataframing.R) file.
 
-## [RMD file](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw10/ScrapingBy.Rmd)
+## [RMD file](https://github.com/arsbar24/STAT545-hw-barton-alistair/blob/master/hw10/ScrapingBy.md)
 
 This file showcases a couple of ways to use the data.
 
