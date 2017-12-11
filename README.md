@@ -7,6 +7,8 @@ output:
 
 ## Table of Contents
 
+Updated 12/10
+
 0. Assignment 1 (in this folder) mostly involves vague data exploration and this file.
 
 1. [Assignment 2](https://github.com/arsbar24/STAT545-hw-barton-alistair/tree/master/hw02) explores datasets and uses functions from the `dplyr` packages such as `filter()`, `select()` and `%>%` to analyze `gapminder`.
@@ -21,6 +23,11 @@ output:
 
 6. [Assignment 7](https://github.com/arsbar24/STAT545-hw-barton-alistair/tree/master/hw07) explores automation of the above analysis of Trump's tweets by use of a `Makefile`.
 
+7. [Assignment 8](https://github.com/arsbar24/STAT545-hw-barton-alistair/tree/master/hw08) builds a user friendly website that analyzes Trump's tweets to the users requests.
+
+8. [Assignment 9](https://github.com/arsbar24/STAT545-hw-barton-alistair/tree/master/hw09) builds a R package for regularized linear fits.
+
+9. [Assignment 10](https://github.com/arsbar24/STAT545-hw-barton-alistair/tree/master/hw10) scrapes the data from a website (RateMyProfessor) and analyzes it.
 
 
 ## Introduction to Alistair
